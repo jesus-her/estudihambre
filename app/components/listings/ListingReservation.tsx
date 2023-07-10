@@ -143,7 +143,8 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
       <div className=" p-4">
         <span className=" text-sm font-bold">
           ¿En dónde te gustaría recibir tu producto?
-        </span>
+        </span>{" "}
+        <br />
         <span className=" opacity-80 text-xs">
           ¡Selecciona el edificio en el que te encuentras actualmente para
           ayudar al vendedor a encontrarte!
