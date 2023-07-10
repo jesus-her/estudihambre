@@ -23,16 +23,14 @@ interface MapProps {
 const url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const attribution =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-const centerUptx = [19.233008228934594, -98.23890546911508];
+const centerUptx = [19.2319, -98.2368];
+
+const defaultZoom = 10;
 const Map: React.FC<MapProps> = ({ center }) => {
   return (
     <MapContainer
-      center={
-        (centerUptx as L.LatLngExpression) || [
-          19.233008228934594, -98.23890546911508,
-        ]
-      }
-      zoom={centerUptx ? 4 : 2}
+      center={(centerUptx as L.LatLngExpression) || [19.2319, -98.2368]}
+      zoom={16} // Establece el nivel de zoom predeterminado
       scrollWheelZoom={false}
       className="h-[35vh] rounded-lg"
     >

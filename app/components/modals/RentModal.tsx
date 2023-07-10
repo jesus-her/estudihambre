@@ -46,7 +46,7 @@ const RentModal = () => {
     defaultValues: {
       category: "",
       location: null,
-      guestCount: 1,
+      guestCount: null,
       roomCount: 1,
       bathroomCount: 1,
       imageSrc: "",
@@ -266,6 +266,7 @@ const RentModal = () => {
             title="Description"
             cols={50}
             rows={7}
+            maxLength={2000}
             {...register("description", { required: true })}
             className={`
           peer

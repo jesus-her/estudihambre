@@ -41,6 +41,7 @@ const Input: React.FC<InputProps> = ({
       )}
       <input
         id={id}
+        maxLength={45}
         pattern={pattern}
         disabled={disabled}
         {...register(id, { required })}

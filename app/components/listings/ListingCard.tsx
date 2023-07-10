@@ -75,7 +75,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
       onClick={() => (disabledCard ? {} : router.push(`/listings/${data.id}`))}
       className="col-span-1 cursor-pointer group  rounded-xl py-6 px-3 shadow-xl border-2 border-neutral-100"
     >
-      <div className="flex flex-col gap-2 w-full">
+      <div className="flex flex-col gap-2 w-full  h-full">
         <div
           className="
             aspect-square 
@@ -109,26 +109,30 @@ const ListingCard: React.FC<ListingCardProps> = ({
             </div>
           )}
         </div>
-        <div className="font-semibold text-lg">{data.title}</div>
-        <div className="font-light text-neutral-500 ">
-          Edificio <span className="uppercase ">{data.locationValue}</span>
-        </div>
+        <div className=" justify-between  flex flex-col flex-1 ">
+          <div>
+            <div className="font-semibold text-lg">{data.title}</div>
+            <div className="font-light text-neutral-500 ">
+              Edificio <span className="uppercase ">{data.locationValue}</span>
+            </div>
 
-        {/* <div className="font-light text-neutral-500">
+            {/* <div className="font-light text-neutral-500">
           {reservationDate || data.category}
         </div> */}
-        <div className="flex flex-row items-center gap-1">
-          <div className="font-semibold">$ {price}</div>
-          {!reservation && <div className="font-light">c/u</div>}
+            <div className="flex flex-row items-center gap-1">
+              <div className="font-semibold">$ {price}</div>
+              {!reservation && <div className="font-light">c/u</div>}
+            </div>
+          </div>
+          {onAction && actionLabel && (
+            <Button
+              disabled={disabled}
+              small
+              label={actionLabel}
+              onClick={handleCancel}
+            />
+          )}
         </div>
-        {onAction && actionLabel && (
-          <Button
-            disabled={disabled}
-            small
-            label={actionLabel}
-            onClick={handleCancel}
-          />
-        )}
       </div>
     </div>
   );
