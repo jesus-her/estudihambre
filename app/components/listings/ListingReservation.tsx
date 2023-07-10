@@ -7,6 +7,7 @@ import Calendar from "../inputs/Calendar";
 import Counter from "../inputs/Counter";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
+import SchoolSelect from "../inputs/SchoolSelect";
 
 interface ListingReservationProps {
   price: number;
@@ -42,6 +43,12 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
     },
   });
   const quantity = watch("quantity");
+  const [selectedSchool, setSelectedSchool] = useState({
+    label: "",
+    subtitle: "",
+    value: "",
+  });
+  console.log("HASHAFGHAGS", selectedSchool);
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
@@ -78,16 +85,24 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
     formData.append("image", file);
 
     // Crear un nuevo mensaje con la imagen adjunta
+
     let message =
       `¡Hola ${listing.user?.name}!` +
       " me gustaría hacer el siguiente pedido: " +
       `*${quantity} ${
         listing.title
-      }* en el edificio *${listing.locationValue.toUpperCase()}*`;
+      }* en el *Edificio ${selectedSchool.label.toUpperCase()} ${
+        selectedSchool.subtitle
+      }*`;
+
+    let message2 =
+      `¡Hola ${listing.user?.name}!` +
+      " me gustaría hacer el siguiente pedido: " +
+      `*${quantity} ${listing.title}* en el *Edificio ${selectedSchool.label}*`;
 
     // Enviar el mensaje con la imagen adjunta
     let url = `https://api.whatsapp.com/send?phone=52${cellphone}&text=${encodeURIComponent(
-      message
+      selectedSchool.subtitle ? message : message2
     )}`;
     url += `&file=${encodeURIComponent(file.name)}`;
     window.open(url);
@@ -100,7 +115,6 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         rounded-xl 
         border-[1px]
       border-neutral-200 
-        overflow-hidden
       "
     >
       <div
@@ -126,12 +140,28 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         />
       </div>
       <hr />
+      <div className=" p-4">
+        <span className=" text-sm font-bold">
+          ¿En dónde te gustaría recibir tu producto?
+        </span>
+        <span className=" opacity-80 text-xs">
+          ¡Selecciona el edificio en el que te encuentras actualmente para
+          ayudar al vendedor a encontrarte!
+        </span>
+        <SchoolSelect
+          extraOptions
+          selectedSchool={selectedSchool}
+          onChange={(value) => {
+            setSelectedSchool(value);
+          }}
+        />
+      </div>
       <div className="p-4 flex flex-row gap-6 items-center justify-center">
         <div className=" text-md font-extrabold p-3  rounded-md border border-1 border-neutral-200 shadow-md">
           {`$${totalPrice * quantity}`}
         </div>
         <Button
-          disabled={disabled}
+          disabled={disabled || !selectedSchool.value}
           label="¡Pedir!"
           price={totalPrice}
           onClick={SendMessage}
