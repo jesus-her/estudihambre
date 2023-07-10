@@ -176,7 +176,7 @@ const RentModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="¿De qué edifio eres?"
+          title="¿De qué edificio eres?"
           subtitle="¡Ayuda a los estudiantes a encontrarte!"
         />
         {/* <CountrySelect
