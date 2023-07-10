@@ -39,6 +39,7 @@ const SchoolSelect: React.FC<SchoolSelectProps> = ({
           options={extraOptions ? moreOptions : options}
           onChange={(value) => onChange(value as any)}
           autoFocus={true}
+          placeholder={"Selecciona un Edificio..."}
           value={selectedSchool}
           formatOptionLabel={(option: any) => (
             <div
