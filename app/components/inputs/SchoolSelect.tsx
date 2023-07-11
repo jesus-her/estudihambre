@@ -36,6 +36,14 @@ const SchoolSelect: React.FC<SchoolSelectProps> = ({
     <div className="container">
       <div className="mt-5 m-auto w-50">
         <Select
+          styles={{
+            menuList: (provided, state) => ({
+              ...provided,
+              paddingTop: 0,
+              paddingBottom: 0,
+            }),
+          }}
+          isSearchable={false}
           options={extraOptions ? moreOptions : options}
           onChange={(value) => onChange(value as any)}
           autoFocus={true}

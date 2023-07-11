@@ -3,7 +3,7 @@
 import { Range } from "react-date-range";
 
 import Button from "../Button";
-import Calendar from "../inputs/Calendar";
+// import Calendar from "../inputs/Calendar";
 import Counter from "../inputs/Counter";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
@@ -48,7 +48,6 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
     subtitle: "",
     value: "",
   });
-  console.log("HASHAFGHAGS", selectedSchool);
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
@@ -109,18 +108,8 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
   }
 
   return (
-    <div
-      className="
-      bg-white 
-        rounded-xl 
-        border-[1px]
-      border-neutral-200 
-      "
-    >
-      <div
-        className="
-      flex flex-row items-center gap-1 p-4"
-      >
+    <div className=" bg-white rounded-xl border-[1px] border-neutral-200 ">
+      <div className="flex flex-row items-center gap-1 p-4">
         <div className="text-2xl font-semibold">$ {price}</div>
         <div className="font-light text-neutral-600">c/u</div>
       </div>

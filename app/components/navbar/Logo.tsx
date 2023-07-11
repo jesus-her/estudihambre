@@ -11,15 +11,14 @@ const Logo = () => {
       onClick={() => router.push("/")}
       className="  items-center gap-1 block  cursor-pointer px-3 py-0 rounded-full text-primary text-3xl font-extrabold"
     >
-      {/* <Image
+      <Image
         onClick={() => router.push("/")}
-        className="hidden md:block cursor-pointer"
-        src="/images/mochila.png"
+        className="block cursor-pointer"
+        src="/images/logoo.png"
         height="25"
-        width="25"
+        width="225"
         alt="Logo"
-      /> */}
-      Estudihambre
+      />
     </div>
   );
 };
