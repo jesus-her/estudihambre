@@ -47,6 +47,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
       <hr />
       {category && (
         <ListingCategory
+          category={category.label}
           icon={category.icon}
           label={title}
           description={description}

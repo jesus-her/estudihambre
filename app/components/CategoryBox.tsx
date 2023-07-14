@@ -55,17 +55,26 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
         items-center 
         justify-center 
         gap-2
-        p-3
-        border-t-2
-        hover:text-primary
-        transition
+
+        hover:opacity-80
+        transition 
         cursor-pointer
-        ${selected ? "border-primary" : "border-transparent"}
-        ${selected ? "text-primary" : "text-neutral-500"}
+
       `}
     >
-      <Icon size={26} />
-      <div className="font-medium text-sm">{label}</div>
+      <div
+        className={` p-2 rounded-full
+        ${selected ? "bg-primary" : "bg-gray-100"}
+        ${selected ? "text-white" : "text-neutral-500"}`}
+      >
+        <Icon size={26} />
+      </div>
+      <div
+        className={` font-bold text-sm  
+        ${selected ? "text-primary" : "text-neutral-500"}`}
+      >
+        {label}
+      </div>
     </div>
   );
 };

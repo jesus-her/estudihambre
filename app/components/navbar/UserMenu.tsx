@@ -51,13 +51,13 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
       <div className="flex flex-row items-center gap-3">
         <div
           onClick={toggleOpen}
-          className=" p-4 md:py-2 md:px-2 border-[1px border-neutral-200 flex flex-row items-center rounded-full cursor-pointer hover:shadow-xl transition bg-[#f0f0f0]"
+          className=" p-3 md:py-2 md:px-2 border-[1px border-neutral-200 flex flex-row items-center rounded-full cursor-pointer hover:shadow-xl transition bg-[#fff]"
         >
           <AiOutlineMenu />
         </div>
         <div
           onClick={onRent}
-          className=" hidden md:block text-sm  py-2 px-4 rounded-full bg-neutral-100 hover:bg-neutral-200 transition cursor-pointer font-bold"
+          className=" hidden md:block text-sm  py-2 px-4 rounded-full bg-[#f0f0f0] hover:bg-neutral-200 transition cursor-pointer font-bold"
         >
           ¡Pon algo a la venta!
         </div>

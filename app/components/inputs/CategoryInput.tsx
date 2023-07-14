@@ -18,21 +18,21 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
   return (
     <div
       onClick={() => onClick(label)}
-      className={`
+      className={` cursor-pointer 
         rounded-xl
         border-2
         p-4
         flex
         flex-col
         gap-3
-        hover:bg-gradient-to-r from-[#E66310]  to-primary 
-        hover:text-white 
+      
+
         transition 
       
         ${
           selected
-            ? "  bg-gradient-to-r from-[#E66310]  to-primary  text-white"
-            : "border-neutral-200"
+            ? "  bg-gradient-to-r from-[#E66310]  to-primary  text-white hover:opacity-100"
+            : "border-neutral-200 hover:opacity-70"
         }
       `}
     >

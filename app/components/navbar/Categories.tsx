@@ -1,15 +1,16 @@
 "use client";
 
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { RiAppsFill } from "react-icons/ri";
 import { BiDrink } from "react-icons/bi";
 import { TbCandy } from "react-icons/tb";
 import { MdLunchDining, MdFastfood } from "react-icons/md";
 import { SiCoffeescript } from "react-icons/si";
-import { GiTacos, GiSandwich, GiDonut } from "react-icons/gi";
+import { GiTacos, GiSandwich, GiDonut, GiAllForOne } from "react-icons/gi";
 
 import CategoryBox from "../CategoryBox";
 import Container from "../Container";
+import Button from "../Button";
 
 export const categories = [
   {
@@ -24,7 +25,7 @@ export const categories = [
       "¡Deliciosas tortas perfectas para cualquier ocasión especial!",
   },
   {
-    label: "Sándwiches",
+    label: "Sándwich",
     icon: GiSandwich,
     description:
       "¡Sabrosos sándwiches preparados con ingredientes frescos y deliciosos!",
@@ -114,6 +115,7 @@ const Categories = () => {
   const category = params?.get("category");
   const pathname = usePathname();
   const isMainPage = pathname === "/";
+  const router = useRouter();
 
   if (!isMainPage) {
     return null;
@@ -121,15 +123,22 @@ const Categories = () => {
 
   return (
     <Container>
-      <div className=" pt-2 font-bold text-primary">Categorias</div>
+      <div className=" my-2 flex flex-row justify-between items-end">
+        <div className=" font-bold text-xl">Categorías</div>
+        <div
+          onClick={() => router.push("/")}
+          className=" font-bold text-xs bg-gray-100 rounded-full px-2 py-1 cursor-pointer hover:opacity-80"
+        >
+          Remover filtros
+        </div>
+      </div>
       <div
         className="
-          pt-2
           flex 
           flex-row 
           items-center 
           justify-between
-          overflow-x-auto 
+          overflow-x-auto  py-2 gap-6
           
         "
       >

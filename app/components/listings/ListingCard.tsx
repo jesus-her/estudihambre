@@ -10,7 +10,8 @@ import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
 
 import HeartButton from "../HeartButton";
 import Button from "../Button";
-import ClientOnly from "../ClientOnly";
+import { BiAdjust } from "react-icons/bi";
+import { MdNavigateNext } from "react-icons/md";
 
 interface ListingCardProps {
   data: SafeListing;
@@ -22,7 +23,6 @@ interface ListingCardProps {
   currentUser?: SafeUser | null;
   disabledCard?: boolean;
 }
-
 const ListingCard: React.FC<ListingCardProps> = ({
   data,
   reservation,
@@ -73,16 +73,16 @@ const ListingCard: React.FC<ListingCardProps> = ({
   return (
     <div
       onClick={() => (disabledCard ? {} : router.push(`/listings/${data.id}`))}
-      className="col-span-1 cursor-pointer group  rounded-xl py-6 px-3 shadow-xl border-2 border-neutral-100"
+      className=" cursor-pointer   rounded-xl py-4 px-3 shadow-xs border-2 border-neutral-100"
     >
-      <div className="flex flex-col gap-2 w-full  h-full">
+      <div className="flex flex-row md:flex-col gap-2 w-full  h-full ">
         <div
-          className="
-            aspect-square 
-            w-full 
+          className=" 
+            aspect-square
+            w-1/2 md:w-full
             relative 
             overflow-hidden 
-            rounded-xl 
+            rounded-2xl 
           "
         >
           <Image
@@ -109,9 +109,9 @@ const ListingCard: React.FC<ListingCardProps> = ({
             </div>
           )}
         </div>
-        <div className=" justify-between  flex flex-col flex-1 ">
+        <div className=" justify-between  flex flex-col flex-1 gap-4  ">
           <div>
-            <div className="font-semibold text-lg">{data.title}</div>
+            <div className="font-bold text-xl">{data.title}</div>
             <div className="font-light text-neutral-500 ">
               Edificio <span className="uppercase ">{data.locationValue}</span>
             </div>
@@ -119,11 +119,17 @@ const ListingCard: React.FC<ListingCardProps> = ({
             {/* <div className="font-light text-neutral-500">
           {reservationDate || data.category}
         </div> */}
-            <div className="flex flex-row items-center gap-1">
-              <div className="font-semibold">$ {price}</div>
-              {!reservation && <div className="font-light">c/u</div>}
+          </div>
+          <div className=" cursor-pointer justify-between flex flex-row items-center">
+            <div className="flex flex-row items-center gap-1 font-bold text-black text-base bg-gray-100 px-3 py-1 rounded-full">
+              <div>${price}</div>
+              {/* {!reservation && <div className="font-light">c/u</div>} */}
+            </div>
+            <div className=" text-gray-400 ">
+              <MdNavigateNext size={25} />
             </div>
           </div>
+
           {onAction && actionLabel && (
             <Button
               disabled={disabled}
