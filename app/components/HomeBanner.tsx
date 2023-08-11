@@ -26,7 +26,7 @@ const HomeBanner: React.FC<NavbarProps> = () => {
 
       <span
         className={`${font.className} text-4xl md:text-6xl tracking-wide  text-black text-center relative
-         rounded-full  overflow-hidden bg-blue-600 `}
+         rounded-full  overflow-hidden bg-primary `}
       >
         compra & vende
         <Filter2DiagonalLines />
