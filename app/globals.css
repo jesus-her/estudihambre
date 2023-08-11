@@ -101,3 +101,9 @@ body,
   background-image: url(/public//images/paper.jpeg);
   filter: brightness(5%);
 }
+
+.banner {
+  background-image: url("../public/images/estudilogo.png");
+
+  height: 300px;
+}
