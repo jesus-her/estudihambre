@@ -22,21 +22,17 @@ const HomeBanner: React.FC<NavbarProps> = () => {
 
       <span className=" text-xl md:text-2xl text-black  relative  ">
         Estudia sin hambre
-        <Filter2DiagonalLines />
       </span>
 
       <span
-        className={`${font.className} text-4xl md:text-6xl tracking-wide  text-transparent  bg-clip-text bg-gradient-to-r from-[#004AAD] to-[#FF66C4] text-center relative
-         rounded-full  overflow-hidden`}
+        className={`${font.className} text-4xl md:text-6xl tracking-wide  text-black text-center relative
+         rounded-full  overflow-hidden bg-blue-600 `}
       >
-        compra <span className="  text-yellow-500">& </span>
-        vende
-        {/* <Filter1GrainTexture /> */}
+        compra & vende
         <Filter2DiagonalLines />
       </span>
       <span className=" text-lg md:text-xl  tracking-wide text-black px-3 relative ">
         comida a los estudiantes
-        <Filter2DiagonalLines />
       </span>
     </div>
   );
