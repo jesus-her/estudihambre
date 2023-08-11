@@ -6,21 +6,27 @@ interface MenuItemProps {
   onClick: () => void;
   label: string;
   icon?: any;
+  active?: boolean;
 }
 
-const MenuItem: React.FC<MenuItemProps> = ({ onClick, label, icon }) => {
+const MenuItem: React.FC<MenuItemProps> = ({
+  onClick,
+  label,
+  icon,
+  active,
+}) => {
   return (
     <div
       onClick={onClick}
-      className="
-        px-3 
-        py-3 
-        hover:bg-neutral-300
-        transition 
-        font-semibold flex flex-row items-center gap-1
-      "
+      className={` text-sm items-center justify-center text-center flex flex-col cursor-pointer ${
+        active ? " text-primary" : " text-gray-500"
+      } `}
     >
-      {icon && icon}
+      {icon && (
+        <div className={`rounded-full p-1 items-center justify-center flex `}>
+          {icon}
+        </div>
+      )}
       {label}
     </div>
   );

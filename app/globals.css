@@ -1,11 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Shrikhand&display=swap");
+
+@font-face {
+  font-family: "ADELIA";
+  src: url("https://fonts.googleapis.com/css2?family=Shrikhand&display=swap");
+}
 
 html,
 body,
 :root {
   height: 100%;
+  background-color: #f0f0f0;
 }
 
 .leaflet-bottom,
@@ -22,4 +29,75 @@ body,
 .rdrCalendarWrapper {
   font-size: 16px !important;
   width: 100% !important;
+}
+
+.c-lesPJm-ijsQFok-css {
+  position: absolute;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0.3;
+  mix-blend-mode: overlay;
+}
+
+.c-lesPJm-ifStJuL-css {
+  filter: hue-rotate(-75deg);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateZ(0);
+}
+
+.grain-texture {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  opacity: 1;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  filter: contrast(300%) brightness(100%);
+}
+
+.c-lesPJm-igdgMPG-css {
+  top: 50%;
+  left: 50%;
+  width: 40%;
+  height: 40%;
+  transform: translate(-50%, -50%) scale(3) translateZ(0);
+  filter: blur(5px);
+  position: absolute;
+  background-color: #ff0;
+  opacity: 0.1;
+}
+
+.c-lesPJm-iiZsAdS-css {
+  width: 340px;
+  height: 560px;
+  padding: 16px;
+  background: pink;
+  position: relative;
+}
+
+.c-lesPJm {
+  box-sizing: border-box;
+}
+
+.paper:after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  mix-blend-mode: difference;
+  background-image: url(/public//images/paper.jpeg);
+  filter: brightness(5%);
 }

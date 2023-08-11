@@ -12,6 +12,8 @@ import HeartButton from "../HeartButton";
 import Button from "../Button";
 import { BiAdjust } from "react-icons/bi";
 import { MdNavigateNext } from "react-icons/md";
+import Filter1GrainTexture from "../filters/Filter1GrainTexture";
+import Filter3Colors from "../filters/Filter3Colors";
 
 interface ListingCardProps {
   data: SafeListing;
@@ -73,8 +75,10 @@ const ListingCard: React.FC<ListingCardProps> = ({
   return (
     <div
       onClick={() => (disabledCard ? {} : router.push(`/listings/${data.id}`))}
-      className=" cursor-pointer   rounded-xl py-4 px-3 shadow-xs border-2 border-neutral-100"
+      className=" cursor-pointer   rounded-xl py-4 px-3 shadow-xs border-2 border-neutral-100 bg-white relative "
     >
+      {/* <Filter1GrainTexture />
+      <Filter3Colors /> */}
       <div className="flex flex-row md:flex-col gap-2 w-full  h-full ">
         <div
           className=" 

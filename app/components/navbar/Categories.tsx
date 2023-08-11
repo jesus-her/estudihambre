@@ -11,6 +11,8 @@ import { GiTacos, GiSandwich, GiDonut, GiAllForOne } from "react-icons/gi";
 import CategoryBox from "../CategoryBox";
 import Container from "../Container";
 import Button from "../Button";
+import HomeBanner from "../HomeBanner";
+import { useEffect, useRef } from "react";
 
 export const categories = [
   {
@@ -63,51 +65,6 @@ export const categories = [
     icon: RiAppsFill,
     description: "",
   },
-  // {
-  //   label: "Lake",
-  //   icon: GiBoatFishing,
-  //   description: "This property is near a lake!",
-  // },
-  // {
-  //   label: "Skiing",
-  //   icon: FaSkiing,
-  //   description: "This property has skiing activies!",
-  // },
-  // {
-  //   label: "Castles",
-  //   icon: GiCastle,
-  //   description: "This property is an ancient castle!",
-  // },
-  // {
-  //   label: "Caves",
-  //   icon: GiCaveEntrance,
-  //   description: "This property is in a spooky cave!",
-  // },
-  // {
-  //   label: "Camping",
-  //   icon: GiForestCamp,
-  //   description: "This property offers camping activities!",
-  // },
-  // {
-  //   label: "Arctic",
-  //   icon: BsSnow,
-  //   description: "This property is in arctic environment!",
-  // },
-  // {
-  //   label: "Desert",
-  //   icon: GiCactus,
-  //   description: "This property is in the desert!",
-  // },
-  // {
-  //   label: "Barns",
-  //   icon: GiBarn,
-  //   description: "This property is in a barn!",
-  // },
-  // {
-  //   label: "Lux",
-  //   icon: IoDiamond,
-  //   description: "This property is brand new and luxurious!",
-  // },
 ];
 
 const Categories = () => {
@@ -123,11 +80,12 @@ const Categories = () => {
 
   return (
     <Container>
+      <HomeBanner />
       <div className=" my-2 flex flex-row justify-between items-end">
         <div className=" font-bold text-xl">Categorías</div>
         <div
           onClick={() => router.push("/")}
-          className=" font-bold text-xs bg-gray-100 rounded-full px-2 py-1 cursor-pointer hover:opacity-80"
+          className=" font-semibold text-xs bg-white rounded-full px-2 py-1 cursor-pointer hover:opacity-80"
         >
           Remover filtros
         </div>
@@ -136,9 +94,9 @@ const Categories = () => {
         className="
           flex 
           flex-row 
-          items-center 
+          items-start 
           justify-between
-          overflow-x-auto  py-2 gap-6
+          overflow-x-auto gap-3  pb-5 pt-1 
           
         "
       >

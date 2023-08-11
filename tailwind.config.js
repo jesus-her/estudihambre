@@ -6,6 +6,9 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: {
+      shrikhand: ["Shrikhand"],
+    },
     extend: {
       colors: {
         primary: "#D95513",

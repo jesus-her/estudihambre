@@ -1,4 +1,4 @@
-import { Nunito } from "next/font/google";
+import { Nunito, Shrikhand } from "next/font/google";
 
 import Navbar from "@/app/components/navbar/Navbar";
 import LoginModal from "@/app/components/modals/LoginModal";
@@ -11,6 +11,9 @@ import ToasterProvider from "@/app/providers/ToasterProvider";
 import "./globals.css";
 import ClientOnly from "./components/ClientOnly";
 import getCurrentUser from "./actions/getCurrentUser";
+import Categories from "./components/navbar/Categories";
+import HomeBanner from "./components/HomeBanner";
+import BottomNavbar from "./components/navbar/BottomNavbar";
 
 export const metadata = {
   title: "Estudihambre",
@@ -38,8 +41,12 @@ export default async function RootLayout({
           <SearchModal />
           <RentModal />
           <Navbar currentUser={currentUser} />
+
+          {currentUser && <BottomNavbar currentUser={currentUser} />}
+
+          <Categories />
         </ClientOnly>
-        <div className="pb-20 pt-28">{children}</div>
+        <div className="pb-20">{children}</div>
       </body>
     </html>
   );

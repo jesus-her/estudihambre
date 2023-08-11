@@ -1,7 +1,12 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { AiOutlineHeart, AiOutlineMenu } from "react-icons/ai";
+import {
+  AiFillHeart,
+  AiFillHome,
+  AiOutlineHeart,
+  AiOutlineMenu,
+} from "react-icons/ai";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -17,9 +22,13 @@ import {
   BiListUl,
   BiLogIn,
   BiLogOut,
+  BiMenuAltLeft,
   BiPlus,
   BiRegistered,
 } from "react-icons/bi";
+import Filter3Colors from "../filters/Filter3Colors";
+import Filter2DiagonalLines from "../filters/Filter2DiagonalLines";
+import Filter1GrainTexture from "../filters/Filter1GrainTexture";
 
 interface UserMenuProps {
   currentUser?: SafeUser | null;
@@ -51,13 +60,13 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
       <div className="flex flex-row items-center gap-3">
         <div
           onClick={toggleOpen}
-          className=" p-3 md:py-2 md:px-2 border-[1px border-neutral-200 flex flex-row items-center rounded-full cursor-pointer hover:shadow-xl transition bg-[#fff]"
+          className=" p-2 md:py-2 md:px-2 border-[1px border-neutral-200 flex flex-row items-center rounded-full cursor-pointer hover:shadow-xl transition bg-[#fff]"
         >
-          <AiOutlineMenu />
+          <BiMenuAltLeft size={20} />
         </div>
         <div
           onClick={onRent}
-          className=" hidden md:block text-sm  py-2 px-4 rounded-full bg-[#f0f0f0] hover:bg-neutral-200 transition cursor-pointer font-bold"
+          className=" hidden md:block text-sm  py-2 px-4 rounded-full bg-[#ffffff] hover:bg-neutral-200 transition cursor-pointer font-bold"
         >
           ¡Pon algo a la venta!
         </div>
@@ -71,90 +80,69 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
             className=" absolute  rounded-xl  shadow-md w-[50vw] md:w-[35vw] bg-white overflow-hidden left-[3rem] top-[4rem]
              text-sm bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-90 border border-gray-100"
           >
-            <div className="flex flex-col cursor-pointer">
+            <div className="flex flex-col cursor-pointer text-sm">
               {currentUser ? (
                 <>
-                  <div className="  px-4 py-3  transitionfont-semibold flex flex-col items-center justify-center font-bold">
+                  <div className="  px-4 py-3  transitionfont-semibold flex flex-col items-center justify-center font-bold text-center relative">
                     <Avatar src={currentUser?.image} />
-                    {currentUser?.name}
+                    {currentUser?.name} <br />
+                    <div className=" opacity-60">{currentUser?.email}</div>
                   </div>
                   <hr />
-                  {/* <MenuItem
-                    label="Mis pedidos"
-                    onClick={() => {
-                      router.push("/trips");
-                      toggleOpen();
-                    }}
-                  /> */}
-                  <MenuItem
-                    icon={<BiHomeAlt2 />}
-                    label="Inicio"
-                    onClick={() => {
-                      router.push("/");
-                      setTimeout(() => {
-                        setIsOpen(false);
-                      }, 500);
-                    }}
-                  />
-                  <MenuItem
-                    icon={<AiOutlineHeart />}
-                    label="Mis favoritos"
-                    onClick={() => {
-                      router.push("/favorites");
-                      setTimeout(() => {
-                        setIsOpen(false);
-                      }, 500);
-                    }}
-                  />
-                  {/* <MenuItem
-                    label="Mis pedidos"
-                    onClick={() => {
-                      router.push("/reservations");
-                      toggleOpen();
-                    }}
-                  /> */}
-                  <MenuItem
-                    icon={<BiListUl />}
-                    label="Mis productos"
-                    onClick={() => {
-                      router.push("/properties");
-                      setTimeout(() => {
-                        setIsOpen(false);
-                      }, 500);
-                    }}
-                  />
-                  <MenuItem
-                    icon={<BiPlus />}
-                    label="Publicar un producto"
-                    onClick={rentModal.onOpen}
-                  />
+
+                  <div
+                    onClick={onRent}
+                    className={` items-center justify-start  flex cursor-pointer gap-2 py-2 px-4  `}
+                  >
+                    <BiPlus size={22} />
+                    Publicar un producto
+                  </div>
                   <hr />
-                  <MenuItem
-                    icon={<BiLogOut />}
-                    label="Cerrar sesión"
+
+                  <div
                     onClick={() => signOut()}
-                  />
+                    className={` items-center justify-start  flex cursor-pointer gap-2 py-2 px-4  text-red-600 `}
+                  >
+                    <BiLogOut size={18} />
+                    Cerrar Sesión
+                  </div>
                 </>
               ) : (
                 <>
-                  <MenuItem
-                    icon={<BiHomeAlt2 />}
-                    label="Inicio"
+                  <div
                     onClick={() => {
                       router.push("/");
                       setTimeout(() => {
                         setIsOpen(false);
                       }, 500);
                     }}
-                  />
-                  <MenuItem
-                    label="Iniciar sesión"
+                    className={` items-center justify-start  flex cursor-pointer gap-2 py-2 px-4  `}
+                  >
+                    <AiFillHome size={18} />
+                    Inicio
+                  </div>
+                  <div
+                    onClick={onRent}
+                    className={` items-center justify-start  flex cursor-pointer gap-2 py-2 px-4  `}
+                  >
+                    <BiPlus size={22} />
+                    Publicar un producto
+                  </div>
+                  <hr />
+
+                  <div
                     onClick={loginModal.onOpen}
-                  />
-                  <MenuItem
-                    label="Registrarse"
+                    className={` items-center justify-start  flex cursor-pointer gap-2 py-2 px-4  `}
+                  >
+                    Iniciar Sesión
+                  </div>
+
+                  <div
                     onClick={registerModal.onOpen}
-                  />
+                    className={` items-center justify-start  flex cursor-pointer gap-2 py-2 px-4  `}
+                  >
+                    Registrarse
+                  </div>
                 </>
               )}
             </div>
