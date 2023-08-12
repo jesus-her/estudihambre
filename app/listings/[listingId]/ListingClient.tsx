@@ -18,6 +18,9 @@ import ListingReservation from "@/app/components/listings/ListingReservation";
 import Avatar from "../../components/Avatar";
 import Button from "@/app/components/Button";
 import { IconType } from "react-icons";
+import { BiQr } from "react-icons/bi";
+import QRCode from "qrcode.react";
+import QRModal from "@/app/components/modals/QRModal";
 
 const initialDateRange = {
   startDate: new Date(),
@@ -64,7 +67,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
   const [totalPrice, setTotalPrice] = useState(listing.price);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
   const pathname = usePathname();
-  console.log(pathname);
+  console.log(pathname, typeof pathname);
 
   const onCreateReservation = useCallback(() => {
     if (!currentUser) {
@@ -104,8 +107,26 @@ const ListingClient: React.FC<ListingClientProps> = ({
     }
   }, [dateRange, listing.price]);
 
-  const Icon: IconType = category?.icon;
+  // const Icon: IconType = category?.icon;
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+  const [link, setLink] = useState("");
+  const [qrCodeValue, setQRCodeValue] = useState("");
+
+  const generateQRCode = () => {
+    toggleModal();
+    setQRCodeValue(`https://estudihambre.vercel.app${pathname}`);
+  };
+
+  const handleLinkChange = (event: any) => {
+    setLink(event.target.value);
+  };
+  // useEffect(() => {
+  //   handleLinkChange(pathname);
+  // }, []);
   return (
     <Container>
       <div
@@ -165,11 +186,21 @@ const ListingClient: React.FC<ListingClientProps> = ({
                   </div>
                 </div>
               </div>
-              <div className=" text-white p-1 rounded-full bg-black  flex flex-col justify-center items-center ml-2">
-                <Icon size={30} />
-                {/* <p>{category?.label}</p> */}
+              <div
+                onClick={generateQRCode}
+                className=" text-black font-bold p-1 hover:opacity-80 gap-1    flex flex-col justify-center items-center  cursor-pointer"
+              >
+                {/* <Icon size={30} /> */}
+                <BiQr
+                  size={30}
+                  className="rounded-full bg-black p-1 shadow-xl text-white"
+                />
+                <p className=" underline text-xs">QR</p>
               </div>
             </div>
+            {isModalOpen && (
+              <QRModal toggleModal={toggleModal} qrCodeValue={qrCodeValue} />
+            )}
           </div>
 
           <div
