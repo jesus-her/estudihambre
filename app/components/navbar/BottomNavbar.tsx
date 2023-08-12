@@ -23,7 +23,7 @@ export default function BottomNavbar({
   //     useActiveSectionContext();
   const router = useRouter();
   const pathname = usePathname();
-  console.log(pathname);
+  // console.log(pathname);
 
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();

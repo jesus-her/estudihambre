@@ -146,8 +146,9 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
           }}
         />
       </div>
-      <div className="p-4 flex flex-row gap-6 items-center justify-center">
-        <div className=" text-md font-extrabold p-3  rounded-md border border-1 border-neutral-200 shadow-md">
+      <div className="p-4 flex flex-row gap-6 items-center justify-center ">
+        <div className=" text-md font-extrabold  flex flex-col  ">
+          <span className=" font-semibold opacity-80">Total: </span>
           {`$${totalPrice * quantity}`}
         </div>
         <Button

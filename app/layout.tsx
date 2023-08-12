@@ -44,7 +44,7 @@ export default async function RootLayout({
 
           {currentUser && <BottomNavbar currentUser={currentUser} />}
 
-          <Categories />
+          <Categories currentUser={currentUser} />
         </ClientOnly>
         <div className="pb-20">{children}</div>
       </body>

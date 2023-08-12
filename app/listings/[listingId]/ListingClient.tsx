@@ -4,7 +4,7 @@ import axios from "axios";
 import { MouseEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Range } from "react-date-range";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { differenceInDays, eachDayOfInterval } from "date-fns";
 
 import useLoginModal from "@/app/hooks/useLoginModal";
@@ -17,6 +17,7 @@ import ListingInfo from "@/app/components/listings/ListingInfo";
 import ListingReservation from "@/app/components/listings/ListingReservation";
 import Avatar from "../../components/Avatar";
 import Button from "@/app/components/Button";
+import { IconType } from "react-icons";
 
 const initialDateRange = {
   startDate: new Date(),
@@ -62,6 +63,8 @@ const ListingClient: React.FC<ListingClientProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [totalPrice, setTotalPrice] = useState(listing.price);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
+  const pathname = usePathname();
+  console.log(pathname);
 
   const onCreateReservation = useCallback(() => {
     if (!currentUser) {
@@ -101,6 +104,8 @@ const ListingClient: React.FC<ListingClientProps> = ({
     }
   }, [dateRange, listing.price]);
 
+  const Icon: IconType = category?.icon;
+
   return (
     <Container>
       <div
@@ -110,22 +115,24 @@ const ListingClient: React.FC<ListingClientProps> = ({
         "
       >
         <div className="flex flex-col gap-6">
-          <ListingHead
-            title={listing.title}
-            imageSrc={listing.imageSrc}
-            locationValue={listing.locationValue}
-            id={listing.id}
-            listing={listing}
-            currentUser={currentUser}
-          />
           <div
-            className="
-              flex flex-col
-              md:gap-10 
-              mt-6
-            "
+            className=" flex flex-col
+
+            w-full
+            h-full
+            relative 
+            overflow-hidden 
+            rounded-xl bg-[#fff] shadow-md
+             p-4 gap-4
+          "
           >
-            <ListingInfo
+            <div className=" flex flex-col gap-2">
+              <h1 className=" text-4xl font-bold">{listing.title}</h1>
+              <p className=" font-medium text-gray-500">
+                {listing.description}
+              </p>
+            </div>
+            {/* <ListingInfo
               user={listing.user}
               category={category}
               title={listing.title}
@@ -134,10 +141,57 @@ const ListingClient: React.FC<ListingClientProps> = ({
               guestCount={listing.guestCount}
               bathroomCount={listing.bathroomCount}
               locationValue={listing.locationValue}
+            /> */}
+            <ListingHead
+              category={category?.label}
+              icon={category?.icon}
+              title={listing.title}
+              imageSrc={listing.imageSrc}
+              locationValue={listing.locationValue}
+              id={listing.id}
+              listing={listing}
+              currentUser={currentUser}
             />
+            <hr className=" my-0" />
+            <div className=" flex flex-row justify-between">
+              {/* Owner */}
+
+              <div className="flex flex-row gap-2 items-center ">
+                <Avatar src={listing.user.image}></Avatar>
+                <div className=" text-sm opacity-70">
+                  Vendido por: {listing.user.name}
+                  <div className=" text-xs ">
+                    WhatsApp: {listing.guestCount}
+                  </div>
+                </div>
+              </div>
+              <div className=" text-white p-1 rounded-full bg-black  flex flex-col justify-center items-center ml-2">
+                <Icon size={30} />
+                {/* <p>{category?.label}</p> */}
+              </div>
+            </div>
+          </div>
+
+          <div
+            className="
+              flex flex-col
+              md:gap-2 
+              mt-0
+            "
+          >
+            {/* <ListingInfo
+              user={listing.user}
+              category={category}
+              title={listing.title}
+              description={listing.description}
+              roomCount={listing.roomCount}
+              guestCount={listing.guestCount}
+              bathroomCount={listing.bathroomCount}
+              locationValue={listing.locationValue}
+            /> */}
             <div
               className="
-                mt-10
+                mt-0
                 md:mt-0 
        =
               "

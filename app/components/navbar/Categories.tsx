@@ -13,6 +13,7 @@ import Container from "../Container";
 import Button from "../Button";
 import HomeBanner from "../HomeBanner";
 import { useEffect, useRef } from "react";
+import { SafeUser } from "@/app/types";
 
 export const categories = [
   {
@@ -67,7 +68,7 @@ export const categories = [
   },
 ];
 
-const Categories = () => {
+const Categories = ({ currentUser }: { currentUser: SafeUser | null }) => {
   const params = useSearchParams();
   const category = params?.get("category");
   const pathname = usePathname();
@@ -80,12 +81,12 @@ const Categories = () => {
 
   return (
     <Container>
-      <HomeBanner />
+      <HomeBanner currentUser={currentUser} />
       <div className=" my-2 flex flex-row justify-between items-end">
         <div className=" font-bold text-xl">Categorías</div>
         <div
           onClick={() => router.push("/")}
-          className=" font-semibold text-xs bg-white rounded-full px-2 py-1 cursor-pointer hover:opacity-80"
+          className=" font-semibold text-xs bg-black text-white rounded-full px-2 py-1 cursor-pointer hover:opacity-80"
         >
           Remover filtros
         </div>

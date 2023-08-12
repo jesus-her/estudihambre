@@ -107,3 +107,25 @@ body,
 
   height: 300px;
 }
+
+.c-lesPJm-ikzLvCr-css {
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  filter: blur(30px) saturate(300%);
+  pointer-events: none;
+  opacity: 0.7;
+  animation: k-jdTnBl 20s linear infinite;
+}
+
+@keyframes k-jdTnBl {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}

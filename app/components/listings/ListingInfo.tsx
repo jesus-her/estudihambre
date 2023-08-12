@@ -44,7 +44,6 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
 
   return (
     <div className="col-span-4 flex flex-col gap-4">
-      <hr />
       {category && (
         <ListingCategory
           category={category.label}

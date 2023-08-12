@@ -59,7 +59,7 @@ const HomeBanner: React.FC<NavbarProps> = ({ currentUser }) => {
                 type="button"
                 className="  bg-gradient-to-b from-[#2c2c2c] to-[#000] py-1 w-fit px-8 self-center  mt-4 font-bold rounded-full  text-base  hover:bg-opacity-90 relative"
               >
-                Call to action
+                ¡Publica algo!
               </button>
             </div>
           </div>
