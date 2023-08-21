@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { MouseEvent, useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Range } from "react-date-range";
 import { usePathname, useRouter } from "next/navigation";
@@ -13,14 +13,16 @@ import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
 import Container from "@/app/components/Container";
 import { categories } from "@/app/components/navbar/Categories";
 import ListingHead from "@/app/components/listings/ListingHead";
-import ListingInfo from "@/app/components/listings/ListingInfo";
 import ListingReservation from "@/app/components/listings/ListingReservation";
 import Avatar from "../../components/Avatar";
 import Button from "@/app/components/Button";
-import { IconType } from "react-icons";
+import Image from "next/image";
+
 import { BiQr } from "react-icons/bi";
-import QRCode from "qrcode.react";
 import QRModal from "@/app/components/modals/QRModal";
+import Filter2DiagonalLines from "@/app/components/filters/Filter2DiagonalLines";
+import Filter3Colors from "@/app/components/filters/Filter3Colors";
+import Filter1GrainTexture from "@/app/components/filters/Filter1GrainTexture";
 
 const initialDateRange = {
   startDate: new Date(),
@@ -127,6 +129,30 @@ const ListingClient: React.FC<ListingClientProps> = ({
   // useEffect(() => {
   //   handleLinkChange(pathname);
   // }, []);
+
+  console.log(listing);
+
+  const listingDate = new Date(listing.createdAt);
+
+  const months = [
+    "ene",
+    "feb",
+    "mar",
+    "abr",
+    "may",
+    "jun",
+    "jul",
+    "ago",
+    "sep",
+    "oct",
+    "nov",
+    "dic",
+  ];
+
+  const formattedDate = `${
+    months[listingDate.getMonth()]
+  } ${listingDate.getDate()} ${listingDate.getFullYear()}`;
+
   return (
     <Container>
       <div
@@ -136,24 +162,22 @@ const ListingClient: React.FC<ListingClientProps> = ({
         "
       >
         <div className="flex flex-col gap-6">
-          <div
-            className=" flex flex-col
-
-            w-full
-            h-full
-            relative 
-            overflow-hidden 
-            rounded-xl bg-[#fff] shadow-md
-             p-4 gap-4
-          "
-          >
-            <div className=" flex flex-col gap-2">
-              <h1 className=" text-4xl font-bold">{listing.title}</h1>
-              <p className=" font-medium text-gray-500">
-                {listing.description}
-              </p>
-            </div>
-            {/* <ListingInfo
+          <div className=" flex flex-col relative w-full h-full overflow-hidden   shadow-md  gap-4 rounded-lg ">
+            <Image
+              fill
+              className="
+        object-contain 
+        h-full 
+        w-full 
+        group-hover:scale-110 
+        transition
+        c-lesPJm-ikzLvCr-css
+        "
+              src={listing.imageSrc}
+              alt="Listing"
+            />
+            <div className=" bg-white z-[1] m-4 p-4  gap-4 flex flex-col rounded-lg ">
+              {/* <ListingInfo
               user={listing.user}
               category={category}
               title={listing.title}
@@ -163,21 +187,18 @@ const ListingClient: React.FC<ListingClientProps> = ({
               bathroomCount={listing.bathroomCount}
               locationValue={listing.locationValue}
             /> */}
-            <ListingHead
-              category={category?.label}
-              icon={category?.icon}
-              title={listing.title}
-              imageSrc={listing.imageSrc}
-              locationValue={listing.locationValue}
-              id={listing.id}
-              listing={listing}
-              currentUser={currentUser}
-            />
-            <hr className=" my-0" />
-            <div className=" flex flex-row justify-between">
+              <ListingHead
+                category={category?.label}
+                icon={category?.icon}
+                title={listing.title}
+                imageSrc={listing.imageSrc}
+                locationValue={listing.locationValue}
+                id={listing.id}
+                listing={listing}
+                currentUser={currentUser}
+              />
               {/* Owner */}
-
-              <div className="flex flex-row gap-2 items-center ">
+              <div className="flex flex-row gap-2 items-center  bg-white mt-2  ">
                 <Avatar src={listing.user.image}></Avatar>
                 <div className=" text-sm opacity-70">
                   Vendido por: {listing.user.name}
@@ -186,18 +207,53 @@ const ListingClient: React.FC<ListingClientProps> = ({
                   </div>
                 </div>
               </div>
-              <div
-                onClick={generateQRCode}
-                className=" text-black font-bold p-1 hover:opacity-80 gap-1    flex flex-col justify-center items-center  cursor-pointer"
-              >
-                {/* <Icon size={30} /> */}
-                <BiQr
-                  size={30}
-                  className="rounded-full bg-black p-1 shadow-xl text-white"
-                />
-                <p className=" underline text-xs">QR</p>
+              <hr />
+              <div className=" flex flex-row justify-between   gap-10 bg-white">
+                <div className=" flex flex-col gap-2 ">
+                  <p className=" font-semibold text-gray-400 text-xs md:text-base uppercase ">
+                    {formattedDate}
+                  </p>
+                  <h1 className=" text-3xl font-bold">{listing.title}</h1>
+                  <p className=" font-semibold text-gray-500 text-sm md:text-base">
+                    {listing.description}
+                  </p>
+                </div>
+                {/* <div
+                  onClick={generateQRCode}
+                  className=" text-black font-bold  hover:opacity-80 gap-1     flex flex-col justify-center items-center  cursor-pointer"
+                >
+                  <p className=" font-semibold text-gray-500 text-xs md:text-base text-center mb-2">
+                    {formattedDate.toUpperCase()}
+                  </p>
+                  <BiQr
+                    size={38}
+                    className="rounded-full bg-black p-2 shadow-2xl text-white"
+                  />
+                  <p className=" text-xs font-bold">¡Compartir!</p>
+                </div> */}
+              </div>
+              <hr />
+              <div className="flex flex-row items-center gap-1  relative    justify-between ">
+                <div className="text-3xl font-semibold    px-3 py-1 rounded-full flex flex-col items-center justify-center bg-gray-100 ">
+                  {/* <p className=" font-semibold text-gray-400 text-xs md:text-base text-center mb-2">
+                    {formattedDate}
+                  </p> */}
+                  <p>${listing.price}</p>
+                </div>
+
+                <div
+                  onClick={generateQRCode}
+                  className=" text-black bg-black rounded-full pr-4 font-bold  hover:opacity-80 gap-1 flex  justify-center items-center  cursor-pointer"
+                >
+                  <BiQr
+                    size={38}
+                    className="rounded-full bg-black p-2 shadow-2xl text-white"
+                  />
+                  <p className=" text-xs font-bold text-white">¡Compartir!</p>
+                </div>
               </div>
             </div>
+
             {isModalOpen && (
               <QRModal toggleModal={toggleModal} qrCodeValue={qrCodeValue} />
             )}

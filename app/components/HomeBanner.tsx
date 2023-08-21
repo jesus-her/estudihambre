@@ -35,7 +35,7 @@ const HomeBanner: React.FC<NavbarProps> = ({ currentUser }) => {
     rentModal.onOpen();
   }, [loginModal, rentModal, currentUser]);
   return (
-    <div className=" flex flex-row gap-0 text-white w-full font-extrabold justify-center items-center bg-white shadow-sm  p-4 rounded-lg relative">
+    <div className=" flex flex-row gap-0 text-white  font-extrabold justify-center items-center bg-white  shadow-sm  p-0 rounded-lg relative overflow-hidden">
       <div className="relative overflow-hidden rounded-lg bg-cover md:bg-contain  text-center banner w-full  ">
         <Filter1GrainTexture />
         <Filter3Colors />

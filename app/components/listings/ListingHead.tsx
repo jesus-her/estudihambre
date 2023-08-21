@@ -34,25 +34,8 @@ const ListingHead: React.FC<ListingHeadProps> = ({
 
   return (
     <>
-      <div
-        className="
-            aspect-square 
-            w-full 
-            relative 
-            overflow-hidden 
-            rounded-xl
-          "
-      >
-        {category && Icon && (
-          <div
-            className=" flex flex-row bg-black px-2 py-1 rounded-full text-white  text-xs w-fit items-center gap-2
-           absolute  right-0 bottom-3 left-1/2 justify-center transform -translate-x-1/2 z-[1] border border-white"
-          >
-            <Icon size={18} />
-            <span>{category}</span>
-          </div>
-        )}
-        <Image
+      <div className="relative w-full h-full">
+        {/* <Image
           fill
           className="
         object-contain 
@@ -64,27 +47,38 @@ const ListingHead: React.FC<ListingHeadProps> = ({
         "
           src={imageSrc}
           alt="Listing"
-        />
-        <Filter1GrainTexture />
-        <Image
-          fill
-          className="
-        object-contain 
-              h-96 
-              w-96 
-              
-              transition
-              
-              "
-          src={imageSrc}
-          alt="Listing"
-        />
+        /> */}
+        {/* <Filter1GrainTexture /> */}
+        <div className=" h-96 w-full relative">
+          <Image
+            fill
+            className="
+          object-cover md:object-contain border border-b-0 md:border-b border-gray-200
+          h-full 
+          w-full 
+          
+          transition
+          
+          "
+            src={imageSrc}
+            alt="Listing"
+          />
+          {category && Icon && (
+            <div
+              className=" flex flex-row bg-black px-2 py-1 rounded-full text-white  text-xs w-fit items-center gap-2
+           absolute  right-0 -bottom-3 left-1/2 justify-center transform -translate-x-1/2 z-[1] border-2 border-white"
+            >
+              <Icon size={18} />
+              <span>{category}</span>
+            </div>
+          )}
+        </div>
         {listing.userId !== currentUser?.id && (
           <div
             className="
         absolute
-        top-3
-        right-3
+        top-2
+        right-2
         "
           >
             <HeartButton listingId={id} currentUser={currentUser} />
