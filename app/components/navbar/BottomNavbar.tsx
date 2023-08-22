@@ -46,7 +46,7 @@ export default function BottomNavbar({
   const iconSize = 20;
 
   return (
-    <header className=" relative z-10 ">
+    <header className=" relative z-[2] ">
       <nav className="flex fixed bottom-0 left-1/2 h-fit -translate-x-1/2 bg-white rounded-3xl py-2 px-4 overflow-hidden shadow-2xl border border-gray-300 w-full rounded-b-none justify-between">
         <MenuItem
           icon={<AiFillHome size={iconSize} />}

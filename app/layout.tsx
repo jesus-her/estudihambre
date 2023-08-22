@@ -14,6 +14,8 @@ import getCurrentUser from "./actions/getCurrentUser";
 import Categories from "./components/navbar/Categories";
 import HomeBanner from "./components/HomeBanner";
 import BottomNavbar from "./components/navbar/BottomNavbar";
+import getListings from "./actions/getListings";
+import EmptyState from "./components/EmptyState";
 
 export const metadata = {
   title: "Estudihambre",
@@ -30,6 +32,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const currentUser = await getCurrentUser();
+  const listings = await getListings({ userId: currentUser?.id });
 
   return (
     <html lang="en">
@@ -41,10 +44,11 @@ export default async function RootLayout({
           <SearchModal />
           <RentModal />
           <Navbar currentUser={currentUser} />
-
           {currentUser && <BottomNavbar currentUser={currentUser} />}
-
-          <Categories currentUser={currentUser} />
+          <Categories
+            currentUser={currentUser}
+            totalProducts={listings.length}
+          />
         </ClientOnly>
         <div className="pb-20">{children}</div>
       </body>

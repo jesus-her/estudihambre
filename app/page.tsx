@@ -5,6 +5,8 @@ import EmptyState from "@/app/components/EmptyState";
 import getListings, { IListingsParams } from "@/app/actions/getListings";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import ClientOnly from "./components/ClientOnly";
+import HomeBanner from "./components/HomeBanner";
+import Categories from "./components/navbar/Categories";
 
 interface HomeProps {
   searchParams: IListingsParams;
@@ -12,6 +14,7 @@ interface HomeProps {
 
 const Home = async ({ searchParams }: HomeProps) => {
   const listings = await getListings(searchParams);
+
   const currentUser = await getCurrentUser();
 
   if (listings.length === 0) {

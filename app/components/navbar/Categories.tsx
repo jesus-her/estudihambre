@@ -14,6 +14,7 @@ import Button from "../Button";
 import HomeBanner from "../HomeBanner";
 import { useEffect, useRef } from "react";
 import { SafeUser } from "@/app/types";
+import getListings from "@/app/actions/getListings";
 
 export const categories = [
   {
@@ -68,7 +69,13 @@ export const categories = [
   },
 ];
 
-const Categories = ({ currentUser }: { currentUser: SafeUser | null }) => {
+const Categories = ({
+  currentUser,
+  totalProducts,
+}: {
+  currentUser: SafeUser | null;
+  totalProducts: number;
+}) => {
   const params = useSearchParams();
   const category = params?.get("category");
   const pathname = usePathname();
@@ -81,7 +88,7 @@ const Categories = ({ currentUser }: { currentUser: SafeUser | null }) => {
 
   return (
     <Container>
-      <HomeBanner currentUser={currentUser} />
+      <HomeBanner currentUser={currentUser} totalProducts={totalProducts} />
       <div className=" my-2 flex flex-row justify-between items-end">
         <div className=" font-bold text-xl">Categorías</div>
         <div

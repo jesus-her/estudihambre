@@ -69,7 +69,6 @@ const ListingClient: React.FC<ListingClientProps> = ({
   const [totalPrice, setTotalPrice] = useState(listing.price);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
   const pathname = usePathname();
-  console.log(pathname, typeof pathname);
 
   const onCreateReservation = useCallback(() => {
     if (!currentUser) {
@@ -210,7 +209,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
               <hr />
               <div className=" flex flex-row justify-between   gap-10 bg-white">
                 <div className=" flex flex-col gap-2 ">
-                  <p className=" font-semibold text-gray-400 text-xs md:text-base uppercase ">
+                  <p className=" font-semibold text-gray-400 text-xs md:text-xs uppercase ">
                     {formattedDate}
                   </p>
                   <h1 className=" text-3xl font-bold">{listing.title}</h1>

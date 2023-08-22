@@ -13,16 +13,19 @@ import useLoginModal from "../hooks/useLoginModal";
 import useRegisterModal from "../hooks/useRegisterModal";
 import useRentModal from "../hooks/useRentModal";
 import { useCallback, useState } from "react";
+import getListings from "../actions/getListings";
 
 interface NavbarProps {
   currentUser?: SafeUser | null;
+  totalProducts: number;
 }
 
 const font = Shrikhand({
   weight: "400",
   subsets: ["latin"],
 });
-const HomeBanner: React.FC<NavbarProps> = ({ currentUser }) => {
+
+const HomeBanner: React.FC<NavbarProps> = ({ currentUser, totalProducts }) => {
   const loginModal = useLoginModal();
 
   const rentModal = useRentModal();
@@ -67,24 +70,27 @@ const HomeBanner: React.FC<NavbarProps> = ({ currentUser }) => {
           {/* Footer */}
           <div className="text-white flex flex-1 w-full  absolute bottom-2 left-1/2 justify-center transform -translate-x-1/2">
             <button
+              onClick={onRent}
               type="button"
-              className=" bg-white font-bold border-r text-black border-gray-300 px-3 py-1 text-xs  hover:bg-opacity-80"
+              className=" bg-white font-bold border-r text-black border-gray-300 px-3 py-1 text-xs"
               data-te-ripple-init
               data-te-ripple-color="light"
             >
               <BiPlus />
             </button>
             <button
+              onClick={onRent}
               type="button"
-              className=" bg-white font-bold border-r text-black border-gray-300 px-3 py-1 text-xs  hover:bg-opacity-80 "
+              className=" bg-white font-bold border-r text-black border-gray-300 px-3 py-1 text-xs "
               data-te-ripple-init
               data-te-ripple-color="light"
             >
-              15 productos disponibles
+              {totalProducts} productos disponibles
             </button>
             <button
+              onClick={onRent}
               type="button"
-              className=" bg-white font-bold  px-3 py-1 text-xs text-black  hover:bg-opacity-80"
+              className=" bg-white font-bold  px-3 py-1 text-xs text-black"
               data-te-ripple-init
               data-te-ripple-color="light"
             >

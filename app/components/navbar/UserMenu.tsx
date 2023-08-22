@@ -29,6 +29,8 @@ import {
 import Filter3Colors from "../filters/Filter3Colors";
 import Filter2DiagonalLines from "../filters/Filter2DiagonalLines";
 import Filter1GrainTexture from "../filters/Filter1GrainTexture";
+import { MdClose } from "react-icons/md";
+import { IoMdCloseCircle } from "react-icons/io";
 
 interface UserMenuProps {
   currentUser?: SafeUser | null;
@@ -73,13 +75,24 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
       </div>
       {isOpen && (
         <div
-          className=" absolute bg-[rgba(0,0,0,0)] w-screen h-screen -top-[1rem] bottom-0 -left-[3rem] right-0"
+          className="           flex 
+          overflow-x-hidden 
+          overflow-y-auto 
+          fixed 
+          inset-0 
+           z-[999]     bg-neutral-800/70 w-screen h-screen top-0 left-0  "
           onClick={toggleOpen}
         >
           <div
-            className=" absolute  rounded-xl  shadow-md w-[50vw] md:w-[35vw] bg-white overflow-hidden left-[3rem] top-[4rem]
+            className=" absolute  rounded-xl  shadow-md w-[50vw] md:w-[35vw] bg-white overflow-hidden left-[1rem] top-[4rem]
              text-sm bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-90 border border-gray-100"
           >
+            <div
+              onClick={toggleOpen}
+              className=" absolute top-1 right-1 cursor-pointer "
+            >
+              <IoMdCloseCircle size={22} onClick={toggleOpen} />
+            </div>
             <div className="flex flex-col cursor-pointer text-sm">
               {currentUser ? (
                 <>
