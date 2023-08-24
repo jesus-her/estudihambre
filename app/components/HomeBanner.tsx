@@ -68,7 +68,7 @@ const HomeBanner: React.FC<NavbarProps> = ({ currentUser, totalProducts }) => {
           </div>
 
           {/* Footer */}
-          <div className="text-white flex flex-1 w-full  absolute bottom-2 left-1/2 justify-center transform -translate-x-1/2">
+          {/* <div className="text-white flex flex-1 w-full  absolute bottom-2 left-1/2 justify-center transform -translate-x-1/2">
             <button
               onClick={onRent}
               type="button"
@@ -96,7 +96,7 @@ const HomeBanner: React.FC<NavbarProps> = ({ currentUser, totalProducts }) => {
             >
               <BiPlus />
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
