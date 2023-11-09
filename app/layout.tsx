@@ -12,10 +12,9 @@ import "./globals.css";
 import ClientOnly from "./components/ClientOnly";
 import getCurrentUser from "./actions/getCurrentUser";
 import Categories from "./components/navbar/Categories";
-import HomeBanner from "./components/HomeBanner";
 import BottomNavbar from "./components/navbar/BottomNavbar";
 import getListings from "./actions/getListings";
-import EmptyState from "./components/EmptyState";
+import ThemeContextProvider from "./context/theme-context";
 
 export const metadata = {
   title: "Estudihambre",
@@ -37,20 +36,22 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        <ClientOnly>
-          <ToasterProvider />
-          <LoginModal />
-          <RegisterModal />
-          <SearchModal />
-          <RentModal />
-          <Navbar currentUser={currentUser} />
-          {currentUser && <BottomNavbar currentUser={currentUser} />}
-          <Categories
-            currentUser={currentUser}
-            totalProducts={listings.length}
-          />
-        </ClientOnly>
-        <div className="pb-20">{children}</div>
+        <ThemeContextProvider>
+          <ClientOnly>
+            <ToasterProvider />
+            <LoginModal />
+            <RegisterModal />
+            <SearchModal />
+            <RentModal />
+            <Navbar currentUser={currentUser} />
+            {currentUser && <BottomNavbar currentUser={currentUser} />}
+            <Categories
+              currentUser={currentUser}
+              totalProducts={listings.length}
+            />
+          </ClientOnly>
+          <div className="pb-20">{children}</div>
+        </ThemeContextProvider>
       </body>
     </html>
   );

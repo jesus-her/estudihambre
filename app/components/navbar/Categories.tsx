@@ -6,15 +6,12 @@ import { BiDrink } from "react-icons/bi";
 import { TbCandy } from "react-icons/tb";
 import { MdLunchDining, MdFastfood } from "react-icons/md";
 import { SiCoffeescript } from "react-icons/si";
-import { GiTacos, GiSandwich, GiDonut, GiAllForOne } from "react-icons/gi";
+import { GiTacos, GiSandwich, GiDonut } from "react-icons/gi";
 
 import CategoryBox from "../CategoryBox";
 import Container from "../Container";
-import Button from "../Button";
 import HomeBanner from "../HomeBanner";
-import { useEffect, useRef } from "react";
 import { SafeUser } from "@/app/types";
-import getListings from "@/app/actions/getListings";
 
 export const categories = [
   {
