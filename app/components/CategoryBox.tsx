@@ -4,6 +4,7 @@ import qs from "query-string";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import { IconType } from "react-icons";
+import { Button } from "@nextui-org/react";
 
 interface CategoryBoxProps {
   icon: IconType;
@@ -47,26 +48,20 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
   }, [label, router, params]);
 
   return (
-    <div
+    <Button
+      variant={selected ? "flat" : "ghost"}
+      radius="full"
+      startContent={<Icon size={22} />}
       onClick={handleClick}
       className={`
-        flex 
-        flex-row 
+        flex text-sm
+        flex-row min-w-fit
         items-center 
         justify-center 
-        gap-0  rounded-full px-3
-        ${selected ? "bg-black" : "bg-white"}
-        ${selected ? "text-white" : "text-neutral-500"}
-        ${selected ? "hover:opacity-100" : "hover:opacity-80"}
- 
-        transition 
-        cursor-pointer`}
+`}
     >
-      <div className={` p-2 rounded-full`}>
-        <Icon size={22} />
-      </div>
-      <div className={` text-sm `}>{label}</div>
-    </div>
+      {label}
+    </Button>
   );
 };
 

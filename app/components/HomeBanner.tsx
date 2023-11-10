@@ -38,7 +38,7 @@ const HomeBanner: React.FC<NavbarProps> = ({ currentUser, totalProducts }) => {
         {/* <p className="text-tiny text-white/60 uppercase font-bold">
           Estudia sin hambre
         </p> */}
-        <h4 className={` font-bold text-xl lg:text-3xl max-w-xs lg:max-w-md `}>
+        <h4 className={` font-bold text-xl lg:text-3xl max-w-xs lg:max-w-sm `}>
           <span className={` tracking-wider`}>Compra & Vende </span>
           comida a los estudiantes.
         </h4>

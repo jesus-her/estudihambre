@@ -12,6 +12,7 @@ import CategoryBox from "../CategoryBox";
 import Container from "../Container";
 import HomeBanner from "../HomeBanner";
 import { SafeUser } from "@/app/types";
+import { Button, Chip } from "@nextui-org/react";
 
 export const categories = [
   {
@@ -86,13 +87,25 @@ const Categories = ({
   return (
     <Container>
       <HomeBanner currentUser={currentUser} totalProducts={totalProducts} />
-      <div className=" my-2 flex flex-row justify-between items-end">
+      <div className=" my-2 mt-4 flex flex-row justify-between items-center">
         <div className=" font-bold text-xl">Categorías</div>
-        <div
-          onClick={() => router.push("/")}
-          className=" font-semibold text-xs bg-black text-white rounded-full px-2 py-1 cursor-pointer hover:opacity-80"
-        >
-          Remover filtros
+        <div className=" flex gap-2 items-center">
+          {category && (
+            <Chip size="sm" variant="dot" color="warning">
+              {category}
+            </Chip>
+          )}
+          <Button
+            isDisabled={category ? false : true}
+            onClick={() => router.push("/")}
+            radius="full"
+            size="sm"
+            color="warning"
+            variant="flat"
+            className=" font-semibold text-xs "
+          >
+            Remover filtros
+          </Button>
         </div>
       </div>
       <div

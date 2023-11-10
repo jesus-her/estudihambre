@@ -8,15 +8,20 @@
   src: url("https://fonts.googleapis.com/css2?family=Shrikhand&display=swap");
 }
 
+html.dark {
+  --line-color: rgba(255, 255, 255, 0.2);
+  background: #000000;
+  padding: 0;
+}
 html,
 body,
-:root {
+/* :root {
   height: 100%;
   background-color: #f0f0f0;
   overflow-x: hidden;
   padding: 0px;
   margin: 0px;
-}
+} */
 
 .leaflet-bottom,
 .leaflet-control,

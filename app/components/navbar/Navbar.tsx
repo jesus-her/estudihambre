@@ -19,7 +19,7 @@ const font = Shrikhand({
 const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   return (
     <div className=" sticky top-0 w-full z-[11] shadow-sm mb-4">
-      <div className=" bg-gradient-to-t from-[#ff914d] to-primary  py-4">
+      <div className=" bg-gradient-to-t from-primary to-primary  py-4">
         {/* <div className=" bg-primary  py-4"> */}
         <Container>
           <div
