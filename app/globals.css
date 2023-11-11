@@ -8,20 +8,18 @@
   src: url("https://fonts.googleapis.com/css2?family=Shrikhand&display=swap");
 }
 
-html.dark {
+html.dark,
+body.dark {
   --line-color: rgba(255, 255, 255, 0.2);
   background: #000000;
   padding: 0;
 }
-html,
-body,
-/* :root {
-  height: 100%;
-  background-color: #f0f0f0;
-  overflow-x: hidden;
-  padding: 0px;
-  margin: 0px;
-} */
+
+:root,
+.light,
+[data-theme="light"] {
+  --nextui-background: none;
+}
 
 .leaflet-bottom,
 .leaflet-control,

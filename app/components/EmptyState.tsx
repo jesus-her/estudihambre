@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 
-import Button from "./Button";
 import Heading from "./Heading";
+import { Button } from "@nextui-org/react";
 
 interface EmptyStateProps {
   title?: string;
@@ -26,17 +26,19 @@ const EmptyState: React.FC<EmptyStateProps> = ({
         flex-col 
         gap-2 
         justify-center 
-        items-center 
+        items-center px-4
       "
     >
       <Heading center title={title} subtitle={subtitle} />
       <div className="w-48 mt-4">
         {showReset && (
           <Button
-            outline
-            label="Eliminar todos los filtros"
+            radius="full"
+            color="primary"
             onClick={() => router.push("/")}
-          />
+          >
+            Eliminar todos los filtros
+          </Button>
         )}
       </div>
     </div>

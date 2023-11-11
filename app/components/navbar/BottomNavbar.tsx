@@ -1,79 +1,88 @@
 "use client";
 
 import React from "react";
-import { SafeUser } from "@/app/types";
-import { useCallback, useState } from "react";
-import { AiFillHeart, AiFillHome } from "react-icons/ai";
-import { signOut } from "next-auth/react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { HiHome, HiHeart, HiViewList } from "react-icons/hi";
+//https://www.npmjs.com/package/clsx
+//@ts-ignore
+import clsx from "clsx";
 import { usePathname, useRouter } from "next/navigation";
-
-import useLoginModal from "@/app/hooks/useLoginModal";
-import useRegisterModal from "@/app/hooks/useRegisterModal";
-import useRentModal from "@/app/hooks/useRentModal";
-
-import MenuItem from "./MenuItem";
-import { BiHomeAlt2, BiListUl } from "react-icons/bi";
+import { SafeUser } from "@/app/types";
+import { useActiveSectionContext } from "@/app/context/active-section-context";
+const links = [
+  {
+    name: "Home",
+    route: "/",
+    label: "Inicio",
+    icon: React.createElement(HiHome),
+  },
+  {
+    name: "Favorites",
+    route: "/favorites",
+    label: "Favoritos",
+    icon: React.createElement(HiHeart),
+  },
+  {
+    name: "myproducts",
+    route: "/properties",
+    label: "Mis Productos",
+    icon: React.createElement(HiViewList),
+  },
+];
 
 export default function BottomNavbar({
   currentUser,
 }: {
   currentUser: SafeUser | null;
 }) {
-  //   const { activeSection, setActiveSection, setTimeOfLastClick } =
-  //     useActiveSectionContext();
   const router = useRouter();
   const pathname = usePathname();
-  // console.log(pathname);
-
-  const loginModal = useLoginModal();
-  const registerModal = useRegisterModal();
-  const rentModal = useRentModal();
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleOpen = useCallback(() => {
-    setIsOpen((value) => !value);
-  }, []);
-
-  const onRent = useCallback(() => {
-    if (!currentUser) {
-      return loginModal.onOpen();
-    }
-
-    rentModal.onOpen();
-  }, [loginModal, rentModal, currentUser]);
-
-  const iconSize = 20;
 
   return (
-    <header className=" relative z-[2] ">
-      <nav className="flex fixed bottom-0 left-1/2 h-fit -translate-x-1/2 bg-white rounded-3xl py-2 px-4 overflow-hidden shadow-2xl border border-gray-300 w-full rounded-b-none justify-between">
-        <MenuItem
-          icon={<AiFillHome size={iconSize} />}
-          label="Inicio"
-          active={pathname === "/"}
-          onClick={() => {
-            router.push("/");
-          }}
-        />
-        <MenuItem
-          icon={<AiFillHeart size={iconSize} />}
-          label="Favoritos"
-          active={pathname === "/favorites"}
-          onClick={() => {
-            router.push("/favorites");
-          }}
-        />
+    <header className="flex justify-center fixed bottom-2 w-screen z-[11]">
+      <motion.nav className="dark:bg-white bg-black shadow-2xl rounded-full  px-2 py-1 ">
+        <ul className="flex items-center justify-center font-medium px-2 py-1 text-neutral-400 gap-6 rounded-full">
+          {links.map((link, index) => (
+            <motion.li
+              className="relative"
+              key={link.route}
+              initial={{ y: -100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+            >
+              <Link
+                className={clsx(
+                  "flex flex-col text-[10px] items-center justify-center w-fit transition px-1",
+                  {
+                    "text-primary dark:text-primary": pathname === link.route,
+                  }
+                )}
+                href={link.route}
+                onClick={() => {
+                  router.push(link.route);
+                }}
+              >
+                <div className=" text-xl">{link.icon}</div>
 
-        <MenuItem
-          icon={<BiListUl size={iconSize} />}
-          label="Mis Productos"
-          active={pathname === "/properties"}
-          onClick={() => {
-            router.push("/properties");
-          }}
-        />
-      </nav>
+                {link.label}
+
+                {link.route === pathname && (
+                  <motion.span
+                    className={`bg-primary rounded-full w-1 h-1 absolute -bottom-1  dark:bg-primary`}
+                    layoutId="activeSection"
+                    transition={{
+                      type: "spring",
+                      stiffness: 100,
+                      damping: 20,
+                    }}
+                  />
+                )}
+              </Link>
+            </motion.li>
+          ))}
+          {/* <ThemeSwitch /> */}
+        </ul>
+      </motion.nav>
     </header>
   );
 }

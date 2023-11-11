@@ -2,12 +2,23 @@
 
 import { Range } from "react-date-range";
 
-import Button from "../Button";
-// import Calendar from "../inputs/Calendar";
 import Counter from "../inputs/Counter";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import SchoolSelect from "../inputs/SchoolSelect";
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Button,
+  Chip,
+  Select,
+  SelectItem,
+} from "@nextui-org/react";
+import { BiCheckCircle, BiSend } from "react-icons/bi";
+import { RiCheckFill } from "react-icons/ri";
+import { BsSendCheckFill } from "react-icons/bs";
 
 interface ListingReservationProps {
   price: number;
@@ -48,6 +59,17 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
     subtitle: "",
     value: "",
   });
+  const moreOptions = [
+    { value: "ud1", label: "UD1", subtitle: "Financiera" },
+    { value: "ud2", label: "UD2", subtitle: "Industrial" },
+    { value: "ud3", label: "UD3", subtitle: "Mecatrónica" },
+    { value: "ud4", label: "UD4", subtitle: "TI" },
+    { value: "ud5", label: "UD5", subtitle: "Biotecnología" },
+    { value: "ud6", label: "UD6", subtitle: "Automotriz" },
+    { value: "gym", label: "Gimnasio Universitario", subtitle: "" },
+    { value: "biblioteca", label: "Biblioteca", subtitle: "" },
+    { value: "cafeteria", label: "Cafetería", subtitle: "" },
+  ];
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
@@ -108,56 +130,69 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
   }
 
   return (
-    <div className=" bg-white rounded-xl border-[1px] border-neutral-200 ">
-      {/* <div className="flex flex-row items-center gap-1 p-4">
-        <div className="text-2xl font-semibold">$ {price}</div>
-        <div className="font-light text-neutral-600">c/u</div>
-      </div> */}
-
-      {/* <Calendar
-        value={dateRange}
-        disabledDates={disabledDates}
-        onChange={(value) => onChangeDate(value.selection)}
-      /> */}
-      <div className=" p-4">
-        <Counter
-          title="Cantidad"
-          subtitle=""
-          value={quantity}
-          onChange={(value) => setCustomValue("quantity", value)}
-        />
-      </div>
-      <hr />
-      <div className=" p-4">
-        <span className=" text-sm font-bold">
-          ¿En dónde te gustaría recibir tu producto?
-        </span>{" "}
-        <br />
-        <span className=" opacity-80 text-xs">
-          ¡Selecciona el edificio en el que te encuentras actualmente para
-          ayudar al vendedor a encontrarte!
-        </span>
-        <SchoolSelect
-          extraOptions
-          selectedSchool={selectedSchool}
-          onChange={(value) => {
-            setSelectedSchool(value);
-          }}
-        />
-      </div>
-      <div className="p-4 flex flex-row gap-6 items-center justify-center ">
-        <div className=" text-md font-extrabold  flex flex-col  ">
-          <span className=" font-semibold opacity-80">Total: </span>
-          {`$${totalPrice * quantity}`}
-        </div>
-        <Button
-          disabled={disabled || !selectedSchool.value}
-          label="¡Pedir!"
-          price={totalPrice}
-          onClick={SendMessage}
-        />
-      </div>
-      <hr />
+    <div className=" rounded-xl border border-[#f0f0f0] dark:border-[#2c2c2c] ">
+      <Card>
+        <CardHeader>
+          <Counter
+            title="Cantidad"
+            subtitle=""
+            value={quantity}
+            onChange={(value) => setCustomValue("quantity", value)}
+          />
+        </CardHeader>
+        <hr />
+        <CardBody>
+          <span className=" text-base font-bold">
+            ¿En dónde te gustaría recibir tu producto?
+          </span>{" "}
+          <br />
+          <span className=" opacity-80 text-sm">
+            ¡Selecciona el edificio en el que te encuentras actualmente para
+            ayudar al vendedor a encontrarte!
+          </span>
+          <div className="flex w-full max-w-xs flex-col gap-2 mt-2">
+            <Select
+              label="Favorite Animal"
+              variant="bordered"
+              placeholder="Select an animal"
+              selectedKeys={selectedSchool.value}
+              className="max-w-xs"
+              onChange={(e) => setSelectedSchool(e.target.value as any)}
+            >
+              {moreOptions.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </Select>
+          </div>
+          {/* <SchoolSelect
+            extraOptions
+            selectedSchool={selectedSchool}
+            onChange={(value) => {
+              setSelectedSchool(value);
+            }}
+          /> */}
+        </CardBody>
+        <CardFooter className="p-4 flex flex-row gap-6 items-end justify-between ">
+          <div className=" text-md font-extrabold  flex flex-col items-center  ">
+            <span className=" font-semibold opacity-80 mb-1">Total: </span>
+            <Chip size="lg" variant="shadow" color="success">
+              {`$${totalPrice * quantity}`}
+            </Chip>
+          </div>
+          <Button
+            color="primary"
+            radius="full"
+            className=" font-bold text-base"
+            endContent={<BiSend />}
+            onClick={SendMessage}
+            isDisabled={disabled || selectedSchool.value === ""}
+          >
+            ¡Pedir!
+          </Button>
+        </CardFooter>
+      </Card>
     </div>
   );
 };

@@ -1,13 +1,11 @@
 "use client";
 
-import Image from "next/image";
-
 import useCountries from "@/app/hooks/useCountries";
 import { SafeUser } from "@/app/types";
 
 import HeartButton from "../HeartButton";
-import Filter1GrainTexture from "../filters/Filter1GrainTexture";
 import { IconType } from "react-icons";
+import { Chip, Image } from "@nextui-org/react";
 
 interface ListingHeadProps {
   title: string;
@@ -34,59 +32,41 @@ const ListingHead: React.FC<ListingHeadProps> = ({
 
   return (
     <>
-      <div className="relative w-full h-full">
-        {/* <Image
-          fill
+      <div className="relative flex flex-col items-center  rounded-lg">
+        <Image
+          isBlurred
           className="
-        object-contain 
-        h-full 
-        w-full 
-        group-hover:scale-110 
-        transition
-        c-lesPJm-ikzLvCr-css
-        "
+          object-cover md:object-cover w-full rounded-lg h-96 lg:h-[28rem] "
           src={imageSrc}
           alt="Listing"
-        /> */}
-        {/* <Filter1GrainTexture /> */}
-        <div className=" h-96 w-full relative">
-          <Image
-            fill
-            className="
-          object-cover md:object-contain border border-b-0 md:border-b border-gray-200
-          h-full 
-          w-full 
-          
-          transition
-          
-          "
-            src={imageSrc}
-            alt="Listing"
-          />
-          {category && Icon && (
-            <div
-              className=" flex flex-row bg-black px-2 py-1 rounded-full text-white  text-xs w-fit items-center gap-2
-           absolute  right-0 -bottom-3 left-1/2 justify-center transform -translate-x-1/2 z-[1] border-2 border-white"
-            >
-              <Icon size={18} />
-              <span>{category}</span>
-            </div>
-          )}
-        </div>
-        {listing.userId !== currentUser?.id && (
+        />
+        {category && Icon && (
           <div
-            className="
-        absolute
-        top-2
-        right-2
-        "
+            className="w-fit items-center absolute right-0 -bottom-3 left-1/2
+             justify-center transform -translate-x-1/2 z-[10]"
           >
-            <HeartButton listingId={id} currentUser={currentUser} />
+            <Chip
+              startContent={<Icon size={20} />}
+              size="md"
+              variant="shadow"
+              color="warning"
+            >
+              {category}
+            </Chip>
           </div>
         )}
-
-        {/* <Heading title={title} subtitle={locationValue} uppercase /> */}
       </div>
+      {listing.userId !== currentUser?.id && (
+        <div
+          className="
+        absolute
+        top-2
+        right-2 z-[10]
+        "
+        >
+          <HeartButton listingId={id} currentUser={currentUser} />
+        </div>
+      )}
     </>
   );
 };

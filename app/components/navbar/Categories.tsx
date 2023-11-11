@@ -114,7 +114,7 @@ const Categories = ({
           flex-row 
           items-start 
           justify-between
-          overflow-x-auto gap-3  pb-5 pt-1 
+          overflow-x-auto gap-3  pb-5 pt-1
           
         "
       >

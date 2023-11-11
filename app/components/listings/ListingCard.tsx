@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import { format } from "date-fns";
@@ -9,11 +8,16 @@ import useCountries from "@/app/hooks/useCountries";
 import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
 
 import HeartButton from "../HeartButton";
-import Button from "../Button";
-import { BiAdjust } from "react-icons/bi";
+import { BiDollar } from "react-icons/bi";
 import { MdNavigateNext } from "react-icons/md";
-import Filter1GrainTexture from "../filters/Filter1GrainTexture";
-import Filter3Colors from "../filters/Filter3Colors";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  Chip,
+  Image,
+} from "@nextui-org/react";
 
 interface ListingCardProps {
   data: SafeListing;
@@ -73,13 +77,21 @@ const ListingCard: React.FC<ListingCardProps> = ({
   }, [reservation]);
 
   return (
-    <div
-      onClick={() => (disabledCard ? {} : router.push(`/listings/${data.id}`))}
-      className=" cursor-pointer   rounded-xl py-4 px-3 shadow-xs border-2 border-neutral-100 bg-white relative "
+    <Card
+      isPressable
+      isFooterBlurred
+      onClick={() =>
+        disabledCard
+          ? {}
+          : setTimeout(() => {
+              router.push(`/listings/${data.id}`);
+            }, 500)
+      }
+      className=" cursor-pointer   rounded-xl  shadow-xs border border-[#f0f0f0] dark:border-[#2c2c2c]   relative "
     >
       {/* <Filter1GrainTexture />
       <Filter3Colors /> */}
-      <div className="flex flex-row md:flex-col gap-2 w-full  h-full ">
+      <CardBody className="flex flex-row md:flex-col gap-2 w-full  h-full ">
         <div
           className=" 
             aspect-square
@@ -90,23 +102,18 @@ const ListingCard: React.FC<ListingCardProps> = ({
           "
         >
           <Image
-            fill
-            className="
-              object-cover 
-              h-full 
-              w-full 
-              group-hover:scale-110 
-              transition 
-            "
+            removeWrapper
+            className="object-cover h-full  w-full"
             src={data.imageSrc}
             alt="Listing"
+            isBlurred
           />
           {currentUser?.id !== data.userId && (
             <div
               className="
             absolute
             top-3
-            right-3
+            right-3 z-[10]
           "
             >
               <HeartButton listingId={data.id} currentUser={currentUser} />
@@ -119,32 +126,45 @@ const ListingCard: React.FC<ListingCardProps> = ({
             <div className="font-light text-neutral-500 ">
               Edificio <span className="uppercase ">{data.locationValue}</span>
             </div>
+            <Chip size="sm" variant="dot" color="warning">
+              {data.category}
+            </Chip>
 
             {/* <div className="font-light text-neutral-500">
           {reservationDate || data.category}
         </div> */}
           </div>
-          <div className=" cursor-pointer justify-between flex flex-row items-center">
-            <div className="flex flex-row items-center gap-1 font-bold text-black text-base bg-gray-100 px-3 py-1 rounded-full">
-              <div>${price}</div>
-              {/* {!reservation && <div className="font-light">c/u</div>} */}
-            </div>
-            <div className=" text-gray-400 ">
-              <MdNavigateNext size={25} />
-            </div>
-          </div>
 
           {onAction && actionLabel && (
             <Button
-              disabled={disabled}
-              small
-              label={actionLabel}
+              variant="flat"
+              radius="full"
+              color="danger"
+              size="sm"
               onClick={handleCancel}
-            />
+              disabled={disabled}
+            >
+              {actionLabel}
+            </Button>
           )}
         </div>
-      </div>
-    </div>
+      </CardBody>
+
+      <CardFooter className=" cursor-pointer justify-between flex flex-row items-center">
+        <Chip
+          startContent={<BiDollar />}
+          variant="flat"
+          color="success"
+          className=" font-bold tracking-wider"
+        >
+          {data.price} c/u
+        </Chip>
+
+        <div className=" text-gray-400 ">
+          <MdNavigateNext size={25} />
+        </div>
+      </CardFooter>
+    </Card>
   );
 };
 

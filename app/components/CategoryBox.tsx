@@ -49,8 +49,9 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
 
   return (
     <Button
-      variant={selected ? "flat" : "ghost"}
+      variant={selected ? "flat" : "flat"}
       radius="full"
+      color={selected ? "warning" : "default"}
       startContent={<Icon size={22} />}
       onClick={handleClick}
       className={`

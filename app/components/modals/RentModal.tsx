@@ -151,9 +151,9 @@ const RentModal = () => {
       <div
         className="
           grid 
-          grid-cols-1 
+          grid-cols-3
           md:grid-cols-2 
-          gap-3
+          gap-2
           max-h-[50vh]
           overflow-y-auto
         "
