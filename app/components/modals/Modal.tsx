@@ -88,7 +88,13 @@ const Modal: React.FC<ModalProps> = ({
             <>
               <ModalHeader className="flex flex-col gap-1">{title}</ModalHeader>
               <ModalBody>{body}</ModalBody>
-              <ModalFooter>
+              <ModalFooter
+                className={`flex  ${
+                  secondaryAction && secondaryActionLabel
+                    ? " flex-row"
+                    : "flex-col-reverse"
+                }`}
+              >
                 {footer}
 
                 {secondaryAction && secondaryActionLabel && (

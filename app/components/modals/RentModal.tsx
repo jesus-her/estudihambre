@@ -116,7 +116,7 @@ const RentModal = () => {
     if (step !== STEPS.PRICE) {
       return onNext();
     }
-    console.log("DATA FINAL:", data);
+    // console.log("DATA FINAL:", data);
 
     // Convertir guestCount de string a number
     data.guestCount = parseInt(data.guestCount, 10); // Utiliza parseInt con la base 10
