@@ -14,7 +14,7 @@ import useRegisterModal from "@/app/hooks/useRegisterModal";
 import Modal from "./Modal";
 import Input from "../inputs/Input";
 import Heading from "../Heading";
-import Button from "../Button";
+import { Button } from "@nextui-org/react";
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
@@ -91,11 +91,13 @@ const RegisterModal = () => {
     <div className="flex flex-col gap-4 mt-3">
       <hr />
       <Button
-        outline
-        label="Continua con Google"
-        icon={FcGoogle}
+        radius="full"
+        variant="flat"
+        startContent={<FcGoogle />}
         onClick={() => signIn("google")}
-      />
+      >
+        Continua con Google
+      </Button>
       {/* <Button 
         outline 
         label="Continue with Github"
@@ -110,21 +112,19 @@ const RegisterModal = () => {
           font-light
         "
       >
-        <p>
+        <pattern>
           ¿Ya tienes una cuenta?
-          <span
+          <Button
             onClick={onToggle}
-            className="
-              text-neutral-800
-              cursor-pointer 
-              hover:underline
-              font-bold
-            "
+            variant="light"
+            radius="full"
+            size="sm"
+            color="secondary"
+            className=" ml-2"
           >
-            {" "}
             Ingresa
-          </span>
-        </p>
+          </Button>
+        </pattern>
       </div>
     </div>
   );

@@ -18,6 +18,14 @@ import ImageUpload from "../inputs/ImageUpload";
 import Input from "../inputs/Input";
 import Heading from "../Heading";
 import SchoolSelect from "../inputs/SchoolSelect";
+import {
+  Chip,
+  Listbox,
+  ListboxItem,
+  Select,
+  SelectItem,
+  Textarea,
+} from "@nextui-org/react";
 
 enum STEPS {
   CATEGORY = 0,
@@ -55,7 +63,11 @@ const RentModal = () => {
       description: "",
     },
   });
-  // const [location, setLocation] = useState<any>(null);
+  const [selectedLocation, setSelectedLocation] = useState({
+    label: "",
+    subtitle: "",
+    value: "",
+  });
   const location = watch("location");
   const category = watch("category");
   const guestCount = watch("guestCount");
@@ -67,6 +79,14 @@ const RentModal = () => {
   //   setLocation(schoolSelected);
   //   console.log(`Option selected:`, schoolSelected);
   // };
+  const options = [
+    { value: "ud1", label: "UD1", subtitle: "Financiera" },
+    { value: "ud2", label: "UD2", subtitle: "Industrial" },
+    { value: "ud3", label: "UD3", subtitle: "Mecatrónica" },
+    { value: "ud4", label: "UD4", subtitle: "TI" },
+    { value: "ud5", label: "UD5", subtitle: "Biotecnología" },
+    { value: "ud6", label: "UD6", subtitle: "Automotriz" },
+  ];
 
   const Map = useMemo(
     () =>
@@ -96,6 +116,8 @@ const RentModal = () => {
     if (step !== STEPS.PRICE) {
       return onNext();
     }
+    console.log("DATA FINAL:", data);
+
     // Convertir guestCount de string a number
     data.guestCount = parseInt(data.guestCount, 10); // Utiliza parseInt con la base 10
     setIsLoading(true);
@@ -143,20 +165,15 @@ const RentModal = () => {
     isLoading;
 
   let bodyContent = (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 overflow-y-auto ">
       <Heading
         title="¿Cuál de estas opciones describe mejor tu producto?"
         subtitle="Elige una categoría"
       />
+
       <div
-        className="
-          grid 
-          grid-cols-3
-          md:grid-cols-2 
-          gap-2
-          max-h-[50vh]
-          overflow-y-auto
-        "
+        className="grid grid-cols-2 md:grid-cols-3 gap-2 max-h-[400px]
+         overflow-y-auto px-0"
       >
         {categories.map((item) => (
           <div key={item.label} className="col-span-1">
@@ -183,11 +200,41 @@ const RentModal = () => {
           value={location}
           onChange={(value) => setCustomValue("location", value)}
         /> */}
-        <SchoolSelect
+        <div className="flex w-full flex-col gap-2 ">
+          <Select
+            isRequired
+            disallowEmptySelection
+            label="Edificio Actual"
+            variant="bordered"
+            placeholder="Selecciona tu Edificio actual"
+            selectedKeys={selectedLocation.value}
+            value={location}
+            onChange={(e) => {
+              setCustomValue("location", e.target.value);
+              setSelectedLocation(e.target.value as any);
+            }}
+          >
+            {options.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label + " - " + option.subtitle}
+              </SelectItem>
+            ))}
+          </Select>
+          {/* <p>{location}</p> */}
+          <Chip
+            size="sm"
+            variant="flat"
+            color="secondary"
+            className=" uppercase"
+          >
+            Edificio: {location}
+          </Chip>
+        </div>
+        {/* <SchoolSelect
           selectedSchool={location}
           onChange={(value) => setCustomValue("location", value)}
-        />
-        <Map center={location?.latlng} />
+        /> */}
+        <Map />
       </div>
     );
   }
@@ -204,6 +251,7 @@ const RentModal = () => {
           id="guestCount"
           label="Número de celular (10 dígitos)"
           disabled={isLoading}
+          maxLength={10}
           register={register}
           errors={errors}
           required
@@ -236,6 +284,11 @@ const RentModal = () => {
           title="Agrega una foto de tu producto"
           subtitle="¡Muestra a todos cómo es tu producto!"
         />
+        <p className=" text-sm opacity-80">
+          Recuerda que solamente podrás elegir una imagen, elige con sabiduría y
+          haz que tu producto luzca lo mejor posible. ¡La elección es tuya,
+          asegúrate de que sea la mejor!
+        </p>
         <ImageUpload
           onChange={(value) => setCustomValue("imageSrc", value)}
           value={imageSrc}
@@ -260,56 +313,21 @@ const RentModal = () => {
           required
         />
         <hr />
-        <div className=" w-full relative">
-          <textarea
-            id="description"
-            title="Description"
-            cols={50}
-            rows={7}
+        <div className="w-full flex flex-col gap-2 ">
+          <Textarea
+            label="Descripción"
+            placeholder="Ingresa una descripción breve de tu producto"
             maxLength={2000}
+            cols={50}
+            minRows={7}
+            // value={comments}
             {...register("description", { required: true })}
-            className={`
-          peer
-          w-full
-          p-4
-          pt-6 
-          font-light 
-          bg-white 
-          border-2
-          rounded-md
-          outline-none
-          transition
-          disabled:opacity-70
-          disabled:cursor-not-allowed
-          ${errors["description"] ? "border-rose-500" : "border-neutral-300"}
-          ${
-            errors["description"]
-              ? "focus:border-rose-500"
-              : "focus:border-black"
-          }
-          `}
-          />
 
-          <label
-            className={`
-            absolute 
-            text-md
-            duration-150 
-            transform 
-            -translate-y-3 
-            top-5 
-            z-10 
-            origin-[0] 
-            peer-placeholder-shown:scale-100 
-            peer-placeholder-shown:translate-y-0 
-            peer-focus:scale-75
-            peer-focus:-translate-y-4
-            left-4 
-            ${errors["description"] ? "text-rose-500" : "text-zinc-400"}
-            `}
-          >
-            Descripción
-          </label>
+            // onValueChange={setComments}
+          />
+          {/* <p className="text-default-500 text-small">
+              Input value: {comments}
+            </p> */}
         </div>
       </div>
     );

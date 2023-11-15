@@ -1,44 +1,51 @@
 "use client";
-
-import { useState } from "react";
-
-import { useRouter } from "next/navigation";
 import QRCode from "qrcode.react";
 import { MdClose } from "react-icons/md";
 import dynamic from "next/dynamic";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+} from "@nextui-org/react";
 
 const QRModal = ({
-  toggleModal,
+  onOpenChange,
+  isOpen,
   qrCodeValue,
 }: {
-  toggleModal: () => void;
+  onOpenChange: () => void;
   qrCodeValue: string;
+  isOpen: boolean;
 }) => {
-  const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
   const CC = dynamic(
     () => import("../CopyClipboard").then((mod) => mod.CopyClipboard),
     { ssr: false }
   );
 
-  console.log(CC);
-
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10 overscroll-none">
-      <div className="bg-white p-12 rounded-md shadow-md relative max-w-[90%] gap-4 flex flex-col justify-center items-center">
-        <button
-          className="  text-black rounded hover:opacity-90 absolute top-2 right-2 flex items-center gap-2 px-2"
-          onClick={toggleModal}
-        >
-          <MdClose size={30} />
-        </button>{" "}
-        <h1 className=" text-lg font-semibold text-black text-center">
-          Comparte esta publicación con el código QR
-        </h1>
-        <QRCode value={qrCodeValue} size={200} />
-        <CC content={qrCodeValue} />
-      </div>
-    </div>
+    <Modal backdrop="blur" isOpen={isOpen} onOpenChange={onOpenChange}>
+      <ModalContent>
+        {(onClose) => (
+          <>
+            <ModalHeader className="flex flex-col gap-1">
+              Comparte esta publicación con el código QR
+            </ModalHeader>
+            <ModalBody className=" flex flex-col justify-center items-center">
+              <QRCode value={qrCodeValue} size={200} />
+              <CC content={qrCodeValue} />
+            </ModalBody>
+            <ModalFooter>
+              <Button color="danger" variant="light" onPress={onClose}>
+                Cerrar
+              </Button>
+            </ModalFooter>
+          </>
+        )}
+      </ModalContent>
+    </Modal>
   );
 };
 

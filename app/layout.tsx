@@ -18,7 +18,8 @@ import ThemeContextProvider from "./context/theme-context";
 
 export const metadata = {
   title: "Estudihambre",
-  description: "Estudihambre app",
+  description:
+    "Estudihambre app, UPTx food delivery app, social media food app",
 };
 
 const font = Nunito({

@@ -14,7 +14,7 @@ import useLoginModal from "@/app/hooks/useLoginModal";
 import Modal from "./Modal";
 import Input from "../inputs/Input";
 import Heading from "../Heading";
-import Button from "../Button";
+import { Button } from "@nextui-org/react";
 
 const LoginModal = () => {
   const router = useRouter();
@@ -86,11 +86,13 @@ const LoginModal = () => {
     <div className="flex flex-col gap-4 mt-3">
       <hr />
       <Button
-        outline
-        label="Continua con Google"
-        icon={FcGoogle}
+        radius="full"
+        variant="flat"
+        startContent={<FcGoogle />}
         onClick={() => signIn("google")}
-      />
+      >
+        Continua con Google
+      </Button>
       {/* <Button
         outline
         label="Continue with Github"
@@ -103,18 +105,16 @@ const LoginModal = () => {
       >
         <p>
           ¿Es tu primera vez usando Estudihambre?
-          <span
+          <Button
             onClick={onToggle}
-            className="
-              text-neutral-800 font-bold
-              cursor-pointer 
-              hover:underline
-              
-            "
+            variant="ghost"
+            radius="full"
+            size="sm"
+            color="secondary"
+            className=" ml-2"
           >
-            {" "}
             Regístrate
-          </span>
+          </Button>
         </p>
       </div>
     </div>

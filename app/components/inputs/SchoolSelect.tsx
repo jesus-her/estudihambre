@@ -55,11 +55,11 @@ const SchoolSelect: React.FC<SchoolSelectProps> = ({
             flex flex-row items-center gap-1"
             >
               <span className=" opacity-50">Edificio</span>
-              <div className=" font-bold ">{option.label}</div>
+              <div className=" font-bold ">{option?.label}</div>
               <div>
                 {/* UPTx, */}
                 <span className=" font-semibold opacity-80">
-                  {option.subtitle}
+                  {option?.subtitle}
                 </span>
               </div>
             </div>

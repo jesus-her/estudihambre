@@ -15,6 +15,8 @@ import {
   Chip,
   Select,
   SelectItem,
+  Input,
+  Textarea,
 } from "@nextui-org/react";
 import { BiCheckCircle, BiSend } from "react-icons/bi";
 import { RiCheckFill } from "react-icons/ri";
@@ -112,22 +114,28 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
       " me gustaría hacer el siguiente pedido: " +
       `*${quantity} ${
         listing.title
-      }* en el *Edificio ${selectedSchool.label.toUpperCase()} ${
-        selectedSchool.subtitle
+      }* en el *Edificio ${selectedSchool?.label?.toUpperCase()} ${
+        selectedSchool?.subtitle
       }*`;
 
     let message2 =
       `¡Hola ${listing.user?.name}!` +
       " me gustaría hacer el siguiente pedido: " +
-      `*${quantity} ${listing.title}* en el *Edificio ${selectedSchool.label}*`;
+      `*${quantity} ${listing.title}* ${
+        comments && ", " + comments
+        //@ts-ignore
+      }, actualmente me encuentro en el *Edificio ${selectedSchool?.toUpperCase()}*`;
 
     // Enviar el mensaje con la imagen adjunta
     let url = `https://api.whatsapp.com/send?phone=52${cellphone}&text=${encodeURIComponent(
-      selectedSchool.subtitle ? message : message2
+      // selectedSchool?.subtitle ? message : message2
+      message2
     )}`;
     url += `&file=${encodeURIComponent(file.name)}`;
     window.open(url);
   }
+
+  const [comments, setComments] = useState("");
 
   return (
     <div className=" rounded-xl border border-[#f0f0f0] dark:border-[#2c2c2c] ">
@@ -150,11 +158,13 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
             ¡Selecciona el edificio en el que te encuentras actualmente para
             ayudar al vendedor a encontrarte!
           </span>
-          <div className="flex w-full max-w-xs flex-col gap-2 mt-2">
+          <div className="flex w-full max-w-xs flex-col gap-2 my-4">
             <Select
-              label="Favorite Animal"
+              disallowEmptySelection
+              isRequired
+              label="Edificio Actual"
               variant="bordered"
-              placeholder="Select an animal"
+              placeholder="Selecciona tu Edificio actual"
               selectedKeys={selectedSchool.value}
               className="max-w-xs"
               onChange={(e) => setSelectedSchool(e.target.value as any)}
@@ -173,6 +183,18 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
               setSelectedSchool(value);
             }}
           /> */}
+          <div className="w-full flex flex-col gap-2 ">
+            <Textarea
+              label="Comentarios (Opcional)"
+              placeholder="Ingresa algún comentario extra"
+              value={comments}
+              description="Puedes agregar algún comentario extra para el vendedor."
+              onValueChange={setComments}
+            />
+            {/* <p className="text-default-500 text-small">
+              Input value: {comments}
+            </p> */}
+          </div>
         </CardBody>
         <CardFooter className="p-4 flex flex-row gap-6 items-end justify-between ">
           <div className=" text-md font-extrabold  flex flex-col items-center  ">

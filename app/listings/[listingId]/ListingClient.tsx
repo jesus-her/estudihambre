@@ -26,6 +26,12 @@ import {
   Chip,
   User,
   Button,
+  Modal,
+  useDisclosure,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
 } from "@nextui-org/react";
 
 const initialDateRange = {
@@ -114,6 +120,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
 
   // const Icon: IconType = category?.icon;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -122,7 +129,8 @@ const ListingClient: React.FC<ListingClientProps> = ({
   const [qrCodeValue, setQRCodeValue] = useState("");
 
   const generateQRCode = () => {
-    toggleModal();
+    // toggleModal();
+    onOpen();
     setQRCodeValue(`https://estudihambre.vercel.app${pathname}`);
   };
 
@@ -158,7 +166,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
 
   return (
     <Container>
-      <Card>
+      <Card className=" mb-4">
         <div className="flex flex-col md:flex-row items-center">
           <CardHeader className="w-fit">
             <ListingHead
@@ -172,19 +180,29 @@ const ListingClient: React.FC<ListingClientProps> = ({
               currentUser={currentUser}
             />
           </CardHeader>
-          <CardBody className="w-fit">
+          <CardBody className="w-full">
             <div className="  z-[1] m-4 p-4  gap-4 flex flex-col rounded-lg border border-[#f0f0f0] dark:border-[#2c2c2c] ">
               {/* Owner */}
-              <p className=" text-sm font-semibold">Vendido por:</p>
+              <p className=" text-sm font-semibold opacity-60">Vendido por:</p>
               <User
                 name={listing.user.name}
                 className=" self-start"
-                description={`WhatsApp: ${listing.guestCount}`}
+                description={`WhatsApp: ${listing.guestCount}, ${listing.locationValue}`}
                 avatarProps={{
                   //@ts-ignore
                   src: listing.user.image,
                 }}
               />
+              {/* <p className=" text-sm font-semibold opacity-60">Ubicado en:</p> */}
+
+              <Chip
+                size="sm"
+                variant="flat"
+                color="secondary"
+                className=" uppercase"
+              >
+                Edificio: {listing.locationValue}
+              </Chip>
 
               <hr />
 
@@ -199,27 +217,29 @@ const ListingClient: React.FC<ListingClientProps> = ({
                   </p>
                 </div>
               </div>
+              <hr />
+
+              <div className=" w-full flex justify-between">
+                <Chip
+                  startContent={<BiDollar />}
+                  variant="flat"
+                  color="success"
+                  className=" font-bold tracking-wider"
+                >
+                  {listing.price} c/u
+                </Chip>
+                <Button
+                  startContent={<BiQr />}
+                  size="sm"
+                  radius="full"
+                  onClick={generateQRCode}
+                >
+                  Compartir
+                </Button>
+              </div>
             </div>
           </CardBody>
         </div>
-        <CardFooter className=" w-full flex justify-between">
-          <Chip
-            startContent={<BiDollar />}
-            variant="flat"
-            color="success"
-            className=" font-bold tracking-wider"
-          >
-            {listing.price} c/u
-          </Chip>
-          <Button
-            startContent={<BiQr />}
-            size="sm"
-            radius="full"
-            onClick={generateQRCode}
-          >
-            ¡Compartir!
-          </Button>
-        </CardFooter>
       </Card>
       <div
         className="
@@ -227,13 +247,12 @@ const ListingClient: React.FC<ListingClientProps> = ({
         mx-auto
         "
       >
+        <QRModal
+          onOpenChange={onOpenChange}
+          isOpen={isOpen}
+          qrCodeValue={qrCodeValue}
+        />
         <div className="flex flex-col gap-6">
-          <div className=" flex flex-col relative w-full h-full overflow-hidden   shadow-md  gap-4 rounded-lg ">
-            {isModalOpen && (
-              <QRModal toggleModal={toggleModal} qrCodeValue={qrCodeValue} />
-            )}
-          </div>
-
           <div className="flex flex-col md:gap-2 mt-0">
             <div className="mt-0 md:mt-0">
               {listing.userId !== currentUser?.id ? (
