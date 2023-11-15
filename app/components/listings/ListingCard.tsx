@@ -75,7 +75,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
   return (
     <div
       onClick={() => (disabledCard ? {} : router.push(`/listings/${data.id}`))}
-      className=" cursor-pointer   rounded-xl py-4 px-3 shadow-xs border-2 border-neutral-100 bg-white relative "
+      className=" cursor-pointer   rounded-xl py-4 px-3 shadow-xs border-2 border-neutral-100 bg-black relative "
     >
       {/* <Filter1GrainTexture />
       <Filter3Colors /> */}
