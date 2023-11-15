@@ -316,7 +316,7 @@ const RentModal = () => {
         <div className="w-full flex flex-col gap-2 ">
           <Textarea
             label="Descripción"
-            placeholder="Ingresa una descripción breve de tu producto"
+            placeholder="Ingresa una descripción breve de tu producto."
             maxLength={2000}
             cols={50}
             minRows={7}
